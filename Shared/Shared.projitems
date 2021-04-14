@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>6efba8a9-a407-4029-bdd0-651d22a87386</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>MG.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
+    <None Include="$(MSBuildThisFileDirectory)Content\Art\VoidShip\Cloak.png" />
+    <None Include="$(MSBuildThisFileDirectory)Content\Art\VoidShip\Reactor.png" />
+    <None Include="$(MSBuildThisFileDirectory)Content\Art\VoidShip\Sensor.png" />
+    <None Include="$(MSBuildThisFileDirectory)Content\Art\VoidShip\Star.png" />
+    <None Include="$(MSBuildThisFileDirectory)Content\Art\VoidShip\Thruster.png" />
+    <None Include="$(MSBuildThisFileDirectory)Content\Art\VoidShip\VoidShip.png" />
+    <None Include="$(MSBuildThisFileDirectory)Content\Art\VoidShip\Weapons.png" />
+    <None Include="$(MSBuildThisFileDirectory)Content\Audio\Drip.wav" />
+    <None Include="$(MSBuildThisFileDirectory)Content\Audio\Fuzz.wav" />
+    <None Include="$(MSBuildThisFileDirectory)Content\Audio\Thrust.wav" />
+    <None Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
+    <None Include="$(MSBuildThisFileDirectory)Content\Font\Font.spritefont" />
+    <None Include="$(MSBuildThisFileDirectory)Content\Font\Menu.spritefont" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\Background.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\BackgroundManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\Grid.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\Starfield.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Global\Entity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Global\GameExtention.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Global\Input.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Global\Message.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Global\ParticleManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Global\PID.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Global\Sound.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Global\Sprite.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Button.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\ColorScheme.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Control.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\ControlManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Label.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Panel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\PrefabPanels\ApplicationPanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\PrefabPanels\DiagnosticsPanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\PrefabPanels\PIDPanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\StatusBar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VoidControl\EntityManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VoidControl\NonPlayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VoidControl\Player.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VoidControl\Ship\Bullet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VoidControl\Ship\Cloak.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VoidControl\Ship\Reactor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VoidControl\Ship\Sensor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VoidControl\Ship\Shield.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VoidControl\Ship\ShipSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VoidControl\Ship\Thruster.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VoidControl\Ship\VoidShip.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VoidControl\Ship\Weapons.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VoidControl\UI\DebugingPanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VoidControl\UI\MiniMap.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VoidControl\UI\MiniMapPanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VoidControl\UI\ShipStatusPanel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VoidControl\UI\TrayRight.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VoidControl\UI\UIManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VoidControl\VoidControl.cs" />
+  </ItemGroup>
+</Project>

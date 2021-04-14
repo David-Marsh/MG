@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game", "Game", "{D1F6DB0E-7806-4213-A974-C0F43E78A742}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VoidControl", "VoidControl", "{528D4608-449B-4B6C-8F54-2A109C698047}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VoidControl.DX", "VoidControl.DX\VoidControl.DX.csproj", "{5B392C43-BA3D-4689-88DA-61C2FC3CA76F}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared", "Shared\Shared.shproj", "{54D8CED4-50DD-4FA9-80FA-C25664BC47E9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "stuff", "stuff", "{0B21444A-B392-4746-B1E0-CCECF9E83AB4}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Shared\Shared.projitems*{54d8ced4-50dd-4fa9-80fa-c25664bc47e9}*SharedItemsImports = 13
+		Shared\Shared.projitems*{5b392c43-ba3d-4689-88da-61c2fc3ca76f}*SharedItemsImports = 5
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B392C43-BA3D-4689-88DA-61C2FC3CA76F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B392C43-BA3D-4689-88DA-61C2FC3CA76F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B392C43-BA3D-4689-88DA-61C2FC3CA76F}.Debug|x64.ActiveCfg = Debug|x64
+		{5B392C43-BA3D-4689-88DA-61C2FC3CA76F}.Debug|x64.Build.0 = Debug|x64
+		{5B392C43-BA3D-4689-88DA-61C2FC3CA76F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B392C43-BA3D-4689-88DA-61C2FC3CA76F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B392C43-BA3D-4689-88DA-61C2FC3CA76F}.Release|x64.ActiveCfg = Release|x64
+		{5B392C43-BA3D-4689-88DA-61C2FC3CA76F}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{528D4608-449B-4B6C-8F54-2A109C698047} = {D1F6DB0E-7806-4213-A974-C0F43E78A742}
+		{5B392C43-BA3D-4689-88DA-61C2FC3CA76F} = {528D4608-449B-4B6C-8F54-2A109C698047}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {632E9EE9-FBA0-4944-B9E2-B10202DDB138}
+	EndGlobalSection
+EndGlobal

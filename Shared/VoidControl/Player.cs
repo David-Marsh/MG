@@ -11,6 +11,9 @@ namespace MG.Shared.VoidControl
         public Matrix OriginMatrix;
         public Matrix PositionMatrix;
         private Point WindowOrigin;
+        private bool autoAim;
+        private bool autoGun;
+
         public Player() : base() 
         {
             IsPlayer = true;
@@ -27,16 +30,43 @@ namespace MG.Shared.VoidControl
             OriginMatrix = Matrix.CreateTranslation(new Vector3(WindowOrigin.ToVector2(), 0.0f));
         }
         public Matrix ViewMatrix() => PositionMatrix * OriginMatrix;
-        public override Vector2 Target => Position + (Input.Position - WindowOrigin).ToVector2();   // Where the mouse is pointed but in world space
+        public Vector2 MouseTarget => Position + (Input.Position - WindowOrigin).ToVector2();   // Where the mouse is pointed but in world space
         private static bool Trigger => !Input.MouseOnUI & Input.MouseLeft(ButtonState.Pressed);
+        public override Entity Target { get; set; }
+        public bool AutoGun
+        {
+            get => autoGun; set
+            {
+                autoGun = value;
+                autoAim &= !autoGun;
+            }
+        }
+        public bool AutoAim
+        {
+            get => autoAim; set
+            {
+                autoAim = value;
+                autoGun &= !autoAim;
+            }
+        }
+
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
             VelocityControl(Input.Stick(), gameTime);
-            Sound.Thrust = Thruster.Thrust;
-            if (Trigger)
-                Shoot(gameTime);
             PositionMatrix = Matrix.CreateTranslation(new Vector3(-Position, 0.0f));
+            Sound.Thrust = Thruster.Thrust;
+            if ((AutoGun) | (AutoAim & Trigger)) AutoShoot();
+            else if (Trigger) Shoot(Vector2.Normalize(MouseTarget));
+        }
+
+        public override void AutoShoot()
+        {
+            Target = EntityManager.NearestShip();
+            if (Target is null) return;
+            TargetRelativePosition = Target.Position - Position;
+            TargetRelativePositionSquared = TargetRelativePosition.LengthSquared();
+            if (TargetInRange) base.AutoShoot();
         }
     }
 }

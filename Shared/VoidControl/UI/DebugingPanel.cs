@@ -17,15 +17,15 @@ namespace MG.VoidControl.UI
         {
             Rows = 7;
             Collums = 10;
-            lblShipCount = new(Colors.Back, Colors.Fore, "Ships:050",6,0,4,1) { CanHover = false };
+            lblShipCount = new(Colors.Back, Colors.Fore, "Ships:050", 6, 0, 4, 1) { CanHover = false };
             btnSpawn = new(Colors.Back, Color.White, "Spawn", 0, 0, 3, 1);
             btnClear = new(Colors.Back, Color.White, "Clear", 3, 0, 3, 1);
             Controls.Add(lblShipCount);
             Controls.Add(btnSpawn);
             Controls.Add(btnClear);
-            btnSpawn.Clicked += new EventHandler(delegate (object o, EventArgs a) { EntityManager.Spawn(); });
+            btnSpawn.Clicked += new EventHandler(delegate (object o, EventArgs a) { EntityManager.Spawn(); PIDPanel.Visible = true; });
             btnClear.Clicked += new EventHandler(delegate (object o, EventArgs a) { EntityManager.Clear(); });
-            PIDPanel = new(Colors.Back, Colors.Fore, 0, 1, 10, 2);
+            PIDPanel = new(Colors.Back, Colors.Fore, 0, 1, 10, 2) { Visible = false };
             Controls.Add(PIDPanel);
         }
 

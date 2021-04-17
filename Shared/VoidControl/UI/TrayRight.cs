@@ -19,8 +19,8 @@ namespace MG.VoidControl.UI
             Rows = 36;
             applicationPanel = new(game, graphics, Colors.Back, Colors.Fore, 0, 0, 8, 1);
             miniMapPanel = new(graphics, Colors.Back, Colors.Fore, 0, 1, 8, 9);
-            shipStatusPanel = new(Colors.Back, Colors.Fore, 0, 10, 8, 4);
-            debugingPanel = new(Colors.Back, Colors.Fore, 0, 14, 8, 7);
+            shipStatusPanel = new(Colors.Back, Colors.Fore, 0, 10, 8, 5);
+            debugingPanel = new(Colors.Back, Colors.Fore, 0, 27, 8, 7);
             diagnosticsPanel = new(Colors.Back, Color.Lime, 4, 34, 4, 2);
             Controls.Add(applicationPanel);
             Controls.Add(miniMapPanel);

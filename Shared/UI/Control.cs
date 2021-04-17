@@ -99,5 +99,7 @@ namespace MG.Shared.UI
         }
         internal virtual void OnClicked() => Clicked?.Invoke(this, new EventArgs());
         public virtual void ApplyMargin(int margin) { HitBox = new Rectangle(HitBox.Location + new Point(margin, margin), HitBox.Size - new Point(margin * 2, margin * 2)); }
+        public void Fore(Color color) => Colors.Init(color, Colors.BackNormal, enabled, isHovering);
+        public void Back(Color color) => Colors.Init(Colors.ForeNormal, color, enabled, isHovering);
     }
 }

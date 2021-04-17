@@ -15,12 +15,10 @@ namespace MG.VoidControl.Ship
         public Thruster Thruster;
         public Weapons Weapons;
         public Point UID = Point.Zero;
-
-        private Vector2 approch;
-        private int ShotDelay;
-        private float TargetDistanceSquared;
-        public static float MaxShipDistanceSquared;
+        public float TargetRelativePositionSquared, TargetRelativeVelocitySquared;
+        public Vector2 TargetRelativePosition, TargetRelativeVelocity;
         protected bool IsPlayer;
+        private float a, b, c, determinant, t1, t2;
         public VoidShip() : this( 0.5f) { }
         public VoidShip(float scale)
         {
@@ -35,10 +33,10 @@ namespace MG.VoidControl.Ship
         }
         public override void Update(GameTime gameTime)
         {
-            TargetDistanceSquared = IsPlayer ? 0 : (Target - Position).LengthSquared();
+            TargetRelativePosition = IsPlayer ? Vector2.Zero : Target.Position - Position;
+            TargetRelativePositionSquared = TargetRelativePosition.LengthSquared();
             IsExpired |= OutOfRange;
             Shield.Power += Reactor.Output;
-            if (ShotDelay > 0) ShotDelay -= gameTime.ElapsedGameTime.Milliseconds;
             Reactor.Update(gameTime);
             Shield.Update(gameTime);
             Weapons.Update(gameTime);
@@ -56,8 +54,6 @@ namespace MG.VoidControl.Ship
             Weapons.Draw(spriteBatch, Position, Rotation);
             base.Draw(spriteBatch);
         }
-        public virtual void SetRotation() => SetRotation(Velocity);
-        public virtual void SetRotation(Vector2 direction) => Rotation = (direction == Vector2.Zero) ? Rotation : (float)Math.Atan2(direction.Y, direction.X);
         public override void HandleCollision(Entity other)
         {
             Vector2 collisionNormal = Vector2.Normalize(this.Position - other.Position);
@@ -76,19 +72,18 @@ namespace MG.VoidControl.Ship
             else
                 IsExpired = true;                                       // Destroy ship
         }
-        public bool TargetDetected => Sensor.RangeSquared > TargetDistanceSquared;
-        public bool TargetInRange => Weapons.RangeSquared > TargetDistanceSquared;
-        public bool OutOfRange => TargetDistanceSquared > MaxShipDistanceSquared;
-        public virtual Vector2 Target => EntityManager.Player.Position;
-        public Vector2 Approch
+        public bool TargetDetected => Sensor.RangeSquared > TargetRelativePositionSquared;
+        public bool TargetInRange => Weapons.RangeSquared > TargetRelativePositionSquared;
+        public bool OutOfRange => TargetRelativePositionSquared > MaxShipDistanceSquared;
+        public virtual Entity Target
         {
+            set { }
             get
             {
-                approch = Target - position;
-                approch -= Vector2.Normalize(approch) * Weapons.Range * 0.9f;
-                return approch;
+                return EntityManager.Player;
             }
         }
+        public static float MaxShipDistanceSquared { get; set; }
         public void VelocityControl(Vector2 stick, GameTime gameTime)
         {
             Vector2 VelocityRequest = stick * Thruster.MaxVelocity;
@@ -100,7 +95,7 @@ namespace MG.VoidControl.Ship
                 {
                     Thruster.Thrust = Vector2.Normalize(Thruster.Thrust) * maxDV;
                 }
-                ApplyThrust(Thruster.Thrust);
+                ApplyThrust();
             }
             Position += Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
@@ -114,11 +109,11 @@ namespace MG.VoidControl.Ship
                     Thruster.Thrust = Vector2.Zero;
                     Velocity = Vector2.Normalize(Velocity) * Thruster.MaxVelocity;
                 }
-                ApplyThrust(Thruster.Thrust);
+                ApplyThrust();
             }
             Position += Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
-        public void ApplyThrust(Vector2 thrust)
+        public void ApplyThrust()
         {
             Thruster.Cost = Thruster.Thrust.Length() * Thruster.CostFactor;
             if (Thruster.Cost > Shield.Power)
@@ -133,14 +128,48 @@ namespace MG.VoidControl.Ship
                 SetRotation(Thruster.Thrust);
             }
         }
-        public void Shoot(GameTime gameTime)
+        public void Shoot(Vector2 vector)
         {
-            if (ShotDelay > 0) return;
-            ShotDelay += 125;
+            if (Weapons.Delay > 0) return;
             if (Shield.Power < 0.3f) return;
-            Shield.Power -= 0.25f;
-            Bullet bullet = new(this, Target);
+            Bullet bullet = new(this, vector);
             EntityManager.Add(bullet);
+            Weapons.Delay += 125;
+            Shield.Power -= 0.25f;
+        }
+        public virtual void AutoShoot()
+        {
+            if (Weapons.Delay > 0) return;
+            if (Shield.Power < 0.3f) return;
+            float t = ShotTime();
+            if (t < 0.3f) return;
+            Bullet bullet = new(this, Vector2.Normalize(TargetRelativePosition + t * TargetRelativeVelocity));
+            EntityManager.Add(bullet);
+            Weapons.Delay += 125;
+            Shield.Power -= 0.25f;
+        }
+        public float ShotTime()
+        {
+            TargetRelativeVelocity = Target.Velocity - Velocity;
+            TargetRelativeVelocitySquared = TargetRelativeVelocity.LengthSquared();
+            if (TargetRelativeVelocitySquared < 0.001f)
+                return 0f;
+            a = TargetRelativeVelocitySquared - Weapons.ShotSpeed * Weapons.ShotSpeed;
+            if (Math.Abs(a) < 0.001f)
+            {
+                return Math.Max(-TargetRelativePositionSquared / (2f * Vector2.Dot(TargetRelativeVelocity, TargetRelativePosition)), 0f);
+            }
+            b = 2f * Vector2.Dot(TargetRelativeVelocity, TargetRelativePosition);
+            c = TargetRelativePositionSquared;
+            determinant = b * b - 4f * a * c;
+            if (determinant > 0f)                       //determinant > 0; two intercept paths (most common)
+            {
+                t1 = (float)((-b + Math.Sqrt(determinant)) / (2f * a));
+                t2 = (float)((-b - Math.Sqrt(determinant)) / (2f * a));
+                return t2 > t1 && t1 > 0.001f ? t1 : t2 > 0.001f ? t2 : 0;
+            }
+            else if (determinant < 0f) return 0f;       //determinant < 0; no intercept path
+            else return Math.Max(-b / (2f * a), 0f);    //determinant = 0; one intercept path, pretty much never happens
         }
     }
 }

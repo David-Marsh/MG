@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace MG.Shared.VoidControl
@@ -76,8 +77,8 @@ namespace MG.Shared.VoidControl
 			if (spawnShipList)
 			{
 				autoSpawnShipList = spawnShipList = false;
-				NonPlayer nonPlayer = new(Player.Position + Vector2.One * 1000);
-				nonPlayer.PID = PID.Tuning;
+				NonPlayer nonPlayer = new(Player.Position + Vector2.UnitX * 1000);
+				PID.Tuning = nonPlayer.PID;
 				Add(nonPlayer);
 			}
 		}
@@ -193,20 +194,25 @@ namespace MG.Shared.VoidControl
 			}
 		}
 		public static Vector2 AvoidShips(Vector2 position)
-        {
+		{
 			Vector2 avoid = Vector2.Zero;
-            Vector2 numerator = new(10000);
-            foreach (VoidShip ship in ships)
-            {
+			Vector2 numerator = new(1000);
+			foreach (VoidShip ship in ships)
+			{
 				if (ship.IsExpired) continue;
 				if (!ship.TargetDetected) continue;
 				if (ship == Player) continue;
 				if (position != ship.Position) avoid += numerator / (position - ship.Position);
 			}
 			return avoid;
-        }
-        #region Draw
-        public override void Draw(GameTime gameTime)
+		}
+		public static VoidShip NearestShip()
+		{
+			float min = ships.Where(entry => entry.IsExpired == false).Min(entry => entry.TargetRelativePositionSquared);
+			return ships.Find(w => w.TargetRelativePositionSquared == min);
+		}
+		#region Draw
+		public override void Draw(GameTime gameTime)
         {
 			GraphicsDevice.Clear(Color.Black);
 			spriteBatch.Begin(transformMatrix: Player.ViewMatrix());			// Map the world space around the player to the full screen

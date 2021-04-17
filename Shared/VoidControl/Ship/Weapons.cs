@@ -14,10 +14,13 @@ namespace MG.VoidControl.Ship
         }
         public override void Update(GameTime gameTime)
         {
+            if (Delay > 0) Delay -= gameTime.ElapsedGameTime.Milliseconds;
             Color =  (gameTime.TotalGameTime.Seconds & 1) != 1 ? Color.Red : Color.Lime;
         }
         public int Range;
         public float RangeSquared;
+        public float ShotSpeed;
+        public int Delay;
         private float RangeMax;
         public override float Quality
         {
@@ -27,6 +30,7 @@ namespace MG.VoidControl.Ship
                 RangeMax = 2000f;
                 Range = (int)((base.Quality * 0.6f + 0.4f) * RangeMax);
                 RangeSquared = Range * Range;
+                ShotSpeed = Range;
             }
         }
     }

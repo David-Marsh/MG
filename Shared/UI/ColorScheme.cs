@@ -7,7 +7,11 @@ namespace MG.Shared.UI
         public ColorScheme(Color back) : this(Color.Gray, back)
         {
         }
-        public ColorScheme(Color fore, Color back)
+        public ColorScheme(Color fore, Color back) : this()
+        {
+            Init(fore, back);
+        }
+        public void Init(Color fore, Color back, bool enable = true, bool hovering = false)
         {
             Fore = ForeNormal = fore;
             ForeHover = new Color(Fore.PackedValue ^ 0x00404040);     // flip bit 7 in R,G and B to change shade of ARGB color
@@ -15,6 +19,7 @@ namespace MG.Shared.UI
             Back = BackNormal = back;
             BackHover = new Color(Back.PackedValue ^ 0x00404040);     // flip bit 7 in R,G and B to change shade of ARGB color
             BackDisabled = Color.Lerp(Back, Color.Gray, 0.5f);        // Shift to grey
+            Set(enable, hovering);
         }
         public void Set(bool enable, bool hovering)
         {

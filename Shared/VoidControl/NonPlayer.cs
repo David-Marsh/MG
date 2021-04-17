@@ -6,6 +6,7 @@ namespace MG.Shared.VoidControl
 {
     public class NonPlayer : VoidShip
     {
+        private Vector2 approch;
         public PID PID;
         public NonPlayer() : this(Vector2.Zero) { }
         public NonPlayer(Vector2 position) : base()
@@ -38,6 +39,15 @@ namespace MG.Shared.VoidControl
         {
             return ((hash >> shift) & 0xFF) / (float)0xFF;
         }
+        public Vector2 Approch
+        {
+            get
+            {
+                approch = TargetRelativePosition;
+                approch -= Vector2.Normalize(approch) * Weapons.Range * 0.9f;
+                return approch;
+            }
+        }
         private Vector2 Avoid => EntityManager.AvoidShips(Position);
         public override void Update(GameTime gameTime)
         {
@@ -50,7 +60,7 @@ namespace MG.Shared.VoidControl
             }
             AccelerationControl(Stick(), gameTime);
             if (TargetInRange)
-                Shoot(gameTime);
+                AutoShoot();
         }
         private Vector2 Stick() => PID.Target(Approch, Avoid);
 

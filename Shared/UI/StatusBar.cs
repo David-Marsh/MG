@@ -53,11 +53,6 @@ namespace MG.Shared.UI
             Setup();
         }
         public event EventHandler<PushStatusEventArgs> PushStatus;
-        //internal override void OnMouseDown()
-        //{
-        //    base.OnMouseDown();
-        //    if (BarBox.Contains(Input.Position)) PushStatus?.Invoke(this, new PushStatusEventArgs() { Value = (Input.Position.X - BarBox.X) / (float)BarBox.Width });
-        //}
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);

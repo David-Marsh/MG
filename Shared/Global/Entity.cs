@@ -43,5 +43,7 @@ namespace MG.Shared.Global
         public abstract void HandleCollision(Entity other);
         public abstract void Update(GameTime gameTime);
         public virtual void Draw(SpriteBatch spriteBatch) => spriteBatch.Draw(image, Position, sourceRectangle, Color, Rotation, Origin, Scale, SpriteEffects.None, 1f);
+        public virtual void SetRotation(Vector2 direction) => Rotation = (direction == Vector2.Zero) ? Rotation : (float)Math.Atan2(direction.Y, direction.X);
+        public virtual void SetRotation() => SetRotation(Velocity);
     }
 }

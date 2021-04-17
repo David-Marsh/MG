@@ -18,7 +18,6 @@ namespace MG.Shared.UI
             Msg.Text = text;
             MouseEnter += new EventHandler(delegate (object o, EventArgs a) { Sound.Drip(); });
         }
-
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (!Visible) return;

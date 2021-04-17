@@ -8,28 +8,29 @@ namespace MG.VoidControl.Ship
     public class Bullet : Entity
     {
         public float Power;
-        public Bullet(VoidShip voidShip, Vector2 target) : this(voidShip,target,1) { }
-        public Bullet(VoidShip voidShip, Vector2 target, float scale)
+        public float Decay;
+        public Bullet(VoidShip voidShip, Vector2 vector)
         {
-            Scale = scale;
+            Scale = voidShip.Scale * 2;
             Image = Content.Load<Texture2D>("Art/VoidShip/Star");
+            Color = Color.White;
             Power = (voidShip.Weapons.Quality * 0.7f + 0.3f);
             Position = voidShip.Position;
-            Velocity = Vector2.Normalize(target - voidShip.Position);
-            Position += Velocity * (voidShip.Radius + Radius);
-            Velocity *= 10;
-            Color = Color.White;
+            Position += vector * (voidShip.Radius + Radius);
+            Velocity = voidShip.Velocity;
+            Velocity += vector * voidShip.Weapons.ShotSpeed;
+            Decay = 0.5f * Power * voidShip.Weapons.ShotSpeed / voidShip.Weapons.Range;  // half life at range
         }
         public override void HandleCollision(Entity other) => throw new NotImplementedException();
         public override void Update(GameTime gameTime)
         {
-            Position += Velocity;
-            Power -= 0.00390625f;                                            // 4.2 seconds at 60 updates per second
+            Position += Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            Power -= Decay * (float)gameTime.ElapsedGameTime.TotalSeconds;                                            
             Rotation -= 0.1f;
             if(Rotation < 0)
                 Rotation += MathHelper.TwoPi;
             IsExpired |= Power <= 0;
-            color.PackedValue -= (uint)0x00010101;
+            color = Power < 0.2f ? Color.Lerp(Color.Transparent, Color.Yellow, Power * 5) : Color.Lerp(Color.Yellow, Color.Pink, (Power - 0.2f) * 1.25f);
         }
     }
 }

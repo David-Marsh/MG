@@ -1,10 +1,10 @@
 # MG
-Monogame projects is a journey to discover what can be done with Monogame. This involves discovering problems and finding solutions. Having a finished product is not an expectation, its all about the journey and not the destination.
+This Monogame solution is a journey to discover what can be done with Monogame. This involves discovering problems and finding solutions. Having a finished product is not an expectation, its all about the journey and not the destination.
 
 There are a few things in the Void Control project that set it apart. While this is not a finished game it is playable and has some interesting elements.
 Each void ship has 6 ship systems.
 - Cloak reduces detection range by opponants
-- Reactor generate energy for ship systems
+- Reactor generates energy for ship systems
 - Sensor increase detection range of opponants
 - Shield protects from damage from colisions with opponants and bullet 
 - Thruster increases maximum acceleration and ammount of power used to accelarate

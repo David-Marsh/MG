@@ -1,5 +1,5 @@
 # MG
-Monogame projects is a journey to discover what can be done with Monogame. This involves discovering problems and finding solutions. Having a finished product is not a expectation, its all about the journey and not the destination.
+Monogame projects is a journey to discover what can be done with Monogame. This involves discovering problems and finding solutions. Having a finished product is not an expectation, its all about the journey and not the destination.
 
 There are a few things in the Void Control project that set it apart. While this is not a finished game it is playable and has some interesting elements.
 Each void ship has 6 ship systems.
@@ -16,4 +16,6 @@ The starfield background places stars based on a hash of visable points on a gri
 
 Non-players are also placed into world space in a simular way of hashing points on a grid.
 ## UI
-A user interface is implemented to provide a heads up display of information while playing. This is all done in a manner that follows consepts of controls that are placed on forms in visual studio. Extending a base control provides a flexiable solution with a low cost to develop with fast performance. Even the minimap is an extention of the base control.
+A user interface is implemented to provide a heads up display of information while playing. This is all done in a manner that follows consepts of controls that are placed on forms in the style of visual studio. Extending a base control provides a flexiable solution with a low cost to develop with fast performance. Even the minimap is an extention of the base control.
+## Aim
+Its nothing new but aiming at where the target is going to be instead of where the target is makes a big diference. Looking around for a while without finding anything just right I copied the method from here http://wiki.unity3d.com/index.php?title=Calculating_Lead_For_Projectiles and revised it to work without unity.

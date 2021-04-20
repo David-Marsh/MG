@@ -196,7 +196,7 @@ namespace MG.Shared.VoidControl
 		public static Vector2 AvoidShips(Vector2 position)
 		{
 			Vector2 avoid = Vector2.Zero;
-			Vector2 numerator = new(1000);
+			Vector2 numerator = new(10000);
 			foreach (VoidShip ship in ships)
 			{
 				if (ship.IsExpired) continue;

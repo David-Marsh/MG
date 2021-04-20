@@ -1,6 +1,8 @@
 ﻿using MG.Shared.Global;
 using MG.VoidControl.Ship;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using static MG.Shared.Global.Sprite;
 
 namespace MG.Shared.VoidControl
 {
@@ -48,7 +50,7 @@ namespace MG.Shared.VoidControl
                 return approch;
             }
         }
-        private Vector2 Avoid => EntityManager.AvoidShips(Position);
+        public Vector2 Avoid => EntityManager.AvoidShips(Position);
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
@@ -64,5 +66,16 @@ namespace MG.Shared.VoidControl
         }
         private Vector2 Stick() => PID.Target(Approch, Avoid);
 
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+            if (IsExpired) return;
+            if (!TargetDetected) return;
+            Rectangle destinationRectangle = new(0, 0, 8, 8);
+            destinationRectangle.Location = (Position + Avoid).ToPoint();
+            spriteBatch.Draw(Pixel, destinationRectangle, Color.Red);
+            destinationRectangle.Location = (Position + Approch).ToPoint();
+            spriteBatch.Draw(Pixel, destinationRectangle, Color.Green);
+        }
     }
 }

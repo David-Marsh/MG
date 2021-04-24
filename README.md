@@ -9,6 +9,8 @@ Each void ship has 6 ship systems.
 - Shield protects from damage from colisions with opponants and bullet 
 - Thruster increases maximum acceleration and ammount of power used to accelarate
 - Weapons increases amount of power and speed in bullets
+
+![Screenshot](SolutionItems/ScreenShot.png)
 ## PID 
 Motion control starts from position velocity and acceleration. Starting with the player only having control over accelaration, it seems fair for the non-players to have these same constraints. In Void Control the non-players approachs weapons firing range of the target while at the same time avoiding other non-players. This results in control that is computationaly easy while having some profound depth. The non-players naturaly flank the player and avoid colision with each other. While the control implements P, I and D the I term is not really helpfull in this application.
 ## Hash

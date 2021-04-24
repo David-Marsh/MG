@@ -18,6 +18,7 @@ namespace MG.Shared.Background
         private static GraphicsDeviceManager graphics;
         private static Background background;
         private static Setting setting;
+        private static readonly int maskSize = 7;
         public static Setting Setting
         {
             get => setting;
@@ -27,11 +28,11 @@ namespace MG.Shared.Background
                 setting = value;
                 background = value switch
                 {
-                    Setting.Starfield => new Starfield(graphics),
-                    Setting.Grid => new Grid(graphics),
-                    Setting.Default => new Grid(graphics),
-                    Setting.Other => new Grid(graphics),
-                    _ => new Grid(graphics),
+                    Setting.Starfield => new Starfield(graphics, maskSize),
+                    Setting.Grid => new Grid(graphics, maskSize),
+                    Setting.Default => new Grid(graphics, maskSize),
+                    Setting.Other => new Grid(graphics, maskSize),
+                    _ => new Grid(graphics, maskSize),
                 };
             }
         }
@@ -41,7 +42,7 @@ namespace MG.Shared.Background
             graphics.DeviceReset += OnResize;
             Setting = Setting.Starfield;
         }
-        public static void OnResize(Object sender, EventArgs e) => background.OnResize(sender, e);
+        public static void OnResize(object sender, EventArgs e) => background.OnResize(sender, e);
         public static void Update(Vector2 screencenter)
         {
             if (Input.OneShotKey(Keys.B))

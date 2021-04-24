@@ -24,6 +24,13 @@ namespace MG.Shared.VoidControl
             Sensor.Quality = 0.0f;
             Cloak.Quality = 0.0f;
         }
+        public void Respawn()
+        {
+            Position = Vector2.Zero;
+            Velocity = Vector2.Zero;
+            IsExpired = false;
+            Shield.Power = 1;
+        }
         public void OnResize(object sender, EventArgs e)
         {
             WindowOrigin = new(((GraphicsDeviceManager)sender).PreferredBackBufferWidth / 2, ((GraphicsDeviceManager)sender).PreferredBackBufferHeight / 2);

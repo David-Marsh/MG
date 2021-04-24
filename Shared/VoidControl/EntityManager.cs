@@ -69,16 +69,21 @@ namespace MG.Shared.VoidControl
         {
 			if (clearShipList)
 			{
-				autoSpawnShipList = clearShipList = false;
-				foreach (VoidShip ship in ships)
-					ship.IsExpired = true;
+				autoSpawnShipList = true;
+				clearShipList = false;
+				Player.Respawn();
+				ships.Clear();
+				bullets.Clear();
+				entities.Clear();
+				entities.Add(Player);
 				priorUID.X = priorUID.Y = 1;
+				Spawn(Player.Position);
 			}
 			if (spawnShipList)
 			{
 				autoSpawnShipList = spawnShipList = false;
 				NonPlayer nonPlayer = new(Player.Position + Vector2.UnitX * 1000);
-				PID.Tuning = nonPlayer.PID;
+				PID.Tuning = nonPlayer.PID = new(0.02f, 0, 3f);
 				Add(nonPlayer);
 			}
 		}
@@ -195,16 +200,36 @@ namespace MG.Shared.VoidControl
 		}
 		public static Vector2 AvoidShips(Vector2 position)
 		{
-			Vector2 avoid = Vector2.Zero;
-			Vector2 numerator = new(10000);
+			Vector2 avoidarea = Vector2.Zero;
+			Vector2 avoidclose;
 			foreach (VoidShip ship in ships)
 			{
 				if (ship.IsExpired) continue;
 				if (!ship.TargetDetected) continue;
 				if (ship == Player) continue;
-				if (position != ship.Position) avoid += numerator / (position - ship.Position);
+				if (position != ship.Position) avoidarea += (position - ship.Position);
 			}
-			return avoid;
+			avoidarea.Normalize();
+			avoidclose = Vector2.One / avoidarea;
+			avoidclose.Normalize();
+			return avoidarea * 5 + avoidclose * 5;
+		}
+		public static Vector2 AvoidShips(NonPlayer thisship)
+		{
+			Vector2 avoidarea = Vector2.Zero;
+			Vector2 avoidclose;
+			foreach (VoidShip ship in ships)
+			{
+				if (ship.IsExpired) continue;
+				if (!ship.TargetDetected) continue;
+				if (thisship.Position == ship.Position) continue;
+				avoidarea += (thisship.Position - ship.Position);
+			}
+			avoidclose = Vector2.One / avoidarea;
+            Vector2 approchNormal = Vector2.Normalize(thisship.Approch);
+            Vector2 avoidarealine = approchNormal * Vector2.Dot(approchNormal, avoidarea);           // Avoid inline with point of approach
+            avoidarea -= avoidarealine;
+            return avoidarea * 0.3f + avoidclose * 1000;
 		}
 		public static VoidShip NearestShip()
 		{

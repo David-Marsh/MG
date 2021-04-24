@@ -17,7 +17,7 @@ namespace MG.VoidControl.Ship
         public Point UID = Point.Zero;
         public float TargetRelativePositionSquared, TargetRelativeVelocitySquared;
         public Vector2 TargetRelativePosition, TargetRelativeVelocity;
-        protected bool IsPlayer;
+        protected bool IsPlayer, InCollision, CollisionStarted;         
         private float a, b, c, determinant, t1, t2;
         public VoidShip() : this( 0.5f) { }
         public VoidShip(float scale)
@@ -33,9 +33,8 @@ namespace MG.VoidControl.Ship
         }
         public override void Update(GameTime gameTime)
         {
-            TargetRelativePosition = IsPlayer ? Vector2.Zero : Target.Position - Position;
-            TargetRelativePositionSquared = TargetRelativePosition.LengthSquared();
-            IsExpired |= OutOfRange;
+            if (InCollision) InCollision = false;
+            else CollisionStarted = false;
             Shield.Power += Reactor.Output;
             Reactor.Update(gameTime);
             Shield.Update(gameTime);
@@ -56,6 +55,9 @@ namespace MG.VoidControl.Ship
         }
         public override void HandleCollision(Entity other)
         {
+            InCollision = true;
+            if (CollisionStarted) return;
+            CollisionStarted = true;
             Vector2 collisionNormal = Vector2.Normalize(this.Position - other.Position);
             if (Vector2.Dot(collisionNormal, this.Velocity) > 0 || Vector2.Dot(collisionNormal, other.Velocity) > 0) return;
             Vector2 ThisInline = collisionNormal * Vector2.Dot(collisionNormal, this.Velocity);           // Velocity inline with point of contact

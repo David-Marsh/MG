@@ -15,8 +15,6 @@ namespace MG.Shared.Global
         public float Ki;
         public float Kd;
 
-        public static PID Tuning;
-
         public PID(float kp, float ki, float kd)
         {
             Kp = kp;
@@ -30,6 +28,8 @@ namespace MG.Shared.Global
         public float KpSaturation => 1 / Kp;        // Ammount of error that will saturate the P term
         public float KiSaturation => 1 / Kp;        // Ammount of ErrorSum that will saturate the I term
         public float KdSaturation => 1 / Kp;        // Ammount of ErrorDelta that will saturate the D term
+        public static bool Visable { get; set; }
+        public static PID Tuning { get; set; }
         #endregion
         public Vector2 Target(Vector2 approch, Vector2 avoid)
         {

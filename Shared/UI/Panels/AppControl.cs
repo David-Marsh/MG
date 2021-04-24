@@ -3,11 +3,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
 
-namespace MG.Shared.UI.PrefabPanels
+namespace MG.Shared.UI.Panels
 {
-    public class ApplicationPanel : Panel
+    public class AppControl : Panel
     {
-        private readonly Button btnPause;
+        public readonly Button btnPause;
         private readonly Button btnMute;
         public readonly Button btnMenu;
         private readonly Button btnMinimize;
@@ -19,7 +19,7 @@ namespace MG.Shared.UI.PrefabPanels
         public bool PauseGame;
         public bool MenuVisable = true;
 
-        public ApplicationPanel(Game game, GraphicsDeviceManager graphics, Color back, Color fore, int col, int row, int colspan, int rowspan) : base(back, fore, col, row, colspan, rowspan)
+        public AppControl(Game game, GraphicsDeviceManager graphics, Color back, Color fore, int col, int row, int colspan, int rowspan) : base(back, fore, col, row, colspan, rowspan)
         {
             Rows = 1;
             Collums = 8;
@@ -80,7 +80,7 @@ namespace MG.Shared.UI.PrefabPanels
         public override void Setup()
         {
             base.Setup();
-            Padding = (int)Cellsize.X / 8;
+            Padding = (int)Cellsize.X / 6;
             btnPause.Setup(this);
             btnMute.Setup(this);
             btnMenu.Setup(this);

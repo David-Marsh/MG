@@ -1,11 +1,10 @@
 ﻿using MG.Shared.UI;
-using MG.Shared.VoidControl;
 using Microsoft.Xna.Framework;
 using System;
 
-namespace MG.VoidControl.UI
+namespace MG.Shared.VoidControl.UI.Panels
 {
-    public class ShipStatusPanel : Panel
+    public class ShipStatus : Panel
     {
         private readonly StatusBar statusReactor;
         private readonly StatusBar statusThruster;
@@ -15,7 +14,7 @@ namespace MG.VoidControl.UI
         private readonly StatusBar statusCloak;
         private readonly Button buttonAutoGun;
         private readonly Button buttonAutoAim;
-        public ShipStatusPanel(Color back, Color fore, int col, int row, int colspan, int rowspan) : base(back, fore, col, row, colspan, rowspan)
+        public ShipStatus(Color back, Color fore, int col, int row, int colspan, int rowspan) : base(back, fore, col, row, colspan, rowspan)
         {
             Rows = 7;
             Collums = 8;

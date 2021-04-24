@@ -52,15 +52,6 @@ namespace MG.Shared.UI
         {
             PanelPlacement = new(col, row, colspan, rowspan);
         }
-        public virtual void Setup(GraphicsDeviceManager graphics, int colums, int rows)         // place at root
-        {
-            Vector2 parentsize = new(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
-            Vector2 cellsize = new(parentsize.X / colums, parentsize.Y / rows);
-            ParentLocation = Vector2.Zero;
-            Location = new Vector2(cellsize.X * PanelPlacement.X, cellsize.Y * PanelPlacement.Y);
-            Size = new Vector2(cellsize.X * PanelPlacement.Width, cellsize.Y * PanelPlacement.Height);
-            Setup();
-        }
         public virtual void Setup(Panel panel)
         {
             Vector2 cellsize = panel.Cellsize;

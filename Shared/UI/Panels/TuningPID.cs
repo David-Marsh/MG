@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework;
 using System;
 
-namespace MG.Shared.UI.PrefabPanels
+namespace MG.Shared.UI.Panels
 {
-    public class PIDPanel : Panel
+    public class TuningPID : Panel
     {
         private readonly Button btnKpInc;
         private readonly Button btnKpDec;
@@ -19,7 +19,7 @@ namespace MG.Shared.UI.PrefabPanels
         private readonly Label lblKd;
         private readonly Label lblD;
 
-        public PIDPanel(Color back, Color fore, int col, int row, int colspan, int rowspan) : base(back, fore, col, row, colspan, rowspan)
+        public TuningPID(Color back, Color fore, int col, int row, int colspan, int rowspan) : base(back, fore, col, row, colspan, rowspan)
         {
             Rows = 3;
             Collums = 10;
@@ -97,6 +97,7 @@ namespace MG.Shared.UI.PrefabPanels
         }
         public override void Update(GameTime gameTime)
         {
+            if (!PID.Visable) return;
             lblKp.Msg.Text = PID.Tuning.Kp.ToString("Kp:0.0000000");
             lblKi.Msg.Text = PID.Tuning.Ki.ToString("Ki:0.0000000");
             lblKd.Msg.Text = PID.Tuning.Kd.ToString("Kd:0.0000000");

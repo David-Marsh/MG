@@ -1,19 +1,19 @@
-﻿using MG.Shared.UI;
-using MG.Shared.UI.PrefabPanels;
-using MG.Shared.VoidControl;
+﻿using MG.Shared.Global;
+using MG.Shared.UI;
+using MG.Shared.UI.Panels;
 using Microsoft.Xna.Framework;
 using System;
 
-namespace MG.VoidControl.UI
+namespace MG.Shared.VoidControl.UI.Panels
 {
-    public class DebugingPanel : Panel
+    public class Debuging : Panel
     {
         private readonly Button btnSpawn;
         private readonly Button btnClear;
         private readonly Label lblShipCount;
-        readonly PIDPanel PIDPanel;
+        readonly TuningPID PIDPanel;
 
-        public DebugingPanel(Color back, Color fore, int col, int row, int colspan, int rowspan) : base(back, fore, col, row, colspan, rowspan)
+        public Debuging(Color back, Color fore, int col, int row, int colspan, int rowspan) : base(back, fore, col, row, colspan, rowspan)
         {
             Rows = 7;
             Collums = 10;
@@ -23,7 +23,7 @@ namespace MG.VoidControl.UI
             Controls.Add(lblShipCount);
             Controls.Add(btnSpawn);
             Controls.Add(btnClear);
-            btnSpawn.Clicked += new EventHandler(delegate (object o, EventArgs a) { EntityManager.Spawn(); PIDPanel.Visible = true; });
+            btnSpawn.Clicked += new EventHandler(delegate (object o, EventArgs a) { EntityManager.Spawn(); PID.Visable = PIDPanel.Visible = true; });
             btnClear.Clicked += new EventHandler(delegate (object o, EventArgs a) { EntityManager.Clear(); });
             PIDPanel = new(Colors.Back, Colors.Fore, 0, 1, 10, 2) { Visible = false };
             Controls.Add(PIDPanel);

@@ -21,9 +21,9 @@ namespace MG.Shared.Background
                 mask = ~(CenterCell.Width - 1);
             }
         }
-        public Background(GraphicsDeviceManager graphics)
+        public Background(GraphicsDeviceManager graphics, int maskSize)
         {
-            MaskBits = 8;                                   // Cell size 256
+            MaskBits = maskSize;                                   
             OnResize(graphics, null);
         }
         public virtual void OnResize(object sender, EventArgs e)

@@ -8,10 +8,12 @@ namespace MG.Shared.Background
 {
     public class Starfield : Background
     {
+        private int pass;
         private Star[] stars;
-        public Starfield(GraphicsDeviceManager graphics) : base(graphics)
+        public Starfield(GraphicsDeviceManager graphics, int maskSize) : base(graphics, maskSize)
         {
-            MaskBits = 7;                                   // Cell size bits
+            MaskBits = maskSize;                                   // Cell size bits
+            pass = 0;
             Star.Maskbits = MaskBits;
             Star.Mask = ~mask;
             OnResize(graphics, null);
@@ -32,10 +34,12 @@ namespace MG.Shared.Background
         public override void Update(Vector2 screencenter)
         {
             base.Update(screencenter);
-            for (int x = 0; x < stars.Length; x++)
+            for (int x = pass; x < stars.Length; x+=4)
             {
                 stars[x].Flash();
             }
+            pass++;
+            pass &= 3;
         }
         protected override void DrawBoundsChanged()
         {
@@ -66,22 +70,39 @@ namespace MG.Shared.Background
                 hash += 3338943067 * (uint)x;
                 hash ^= RotateRight(hash, 17);
                 flash = hash * 3338943067;
-                destinationRectangle.X = x + ((int)hash & mask); 
-                destinationRectangle.Y = y + ((int)(hash >> maskbits) & mask);
+                destinationRectangle.X = x + (((int)hash & mask) << 2); 
+                destinationRectangle.Y = y + (((int)(hash >> maskbits) & mask) << 2);
                 destinationRectangle.Width = destinationRectangle.Height = (int)((hash & 3) ) + 1;
-                hash |= 0xFF3F3F3F;
+                hash = (hash & 3) switch
+                {
+                    0 => 0xFFFFFFFF,
+                    1 => hash | 0xFF7F7F7F,
+                    2 => hash | 0xFF3F3F3F,
+                    _ => hash | 0xFF1F1F1F,
+                };
             }
             public void Flash()
             {
                 flash = RotateRight(flash, 3) + 7;
-                if ((flash & 4) == 0)
-                    Color.PackedValue = hash & 0xFF3F3F3F;
-                else if ((flash & 2) == 0)
-                    Color.PackedValue = hash & 0xFF7F7F7F;
-                else if ((flash & 1) == 0)
-                    Color.PackedValue = hash;
-                else
-                    Color.PackedValue = hash & 0xFFBFBFBF;
+                Color.PackedValue = (flash & 7) switch
+                {
+                    //0 => 0xFF1F1F1F,
+                    //1 => 0xFF2F2F2F,
+                    //2 => 0xFF3F3F3F,
+                    //3 => 0xFF4F4F4F,
+                    //4 => 0xFF5F5F5F,
+                    //5 => 0xFF6F6F6F,
+                    //6 => 0xFF7F7F7F,
+                    //_ => 0xFF8F8F8F,
+                    0 => hash & 0xFF1F1F1F,
+                    1 => hash & 0xFF2F2F2F,
+                    2 => hash & 0xFF3F3F3F,
+                    3 => hash & 0xFF4F4F4F,
+                    4 => hash & 0xFF5F5F5F,
+                    5 => hash & 0xFF6F6F6F,
+                    6 => hash & 0xFF7F7F7F,
+                    _ => hash,
+                };
             }
             [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
             public static uint RotateRight(uint value, int count)

@@ -10,8 +10,21 @@ namespace MG.Shared.UI
 {
     public abstract class ControlManager : DrawableGameComponent
     {
-        private SpriteBatch spriteBatch;
+        protected SpriteBatch spriteBatch;
         private Control hoverControl;
+        private Control HoverControl
+        {
+            get => hoverControl; set
+            {
+                if (hoverControl != value)
+                {
+                    hoverControl?.OnMouseLeave();
+                    hoverControl = value;
+                    hoverControl?.OnMouseEnter();
+                    Input.MouseOnUI = HoverControl != null;
+                }
+            }
+        }
         public List<Control> Controls { get; private set; }
         protected ControlManager(Game game) : base(game)
         {
@@ -27,23 +40,19 @@ namespace MG.Shared.UI
         public abstract void Setup(object sender, EventArgs e);     // Override to setup all controls size and positions
         public override void Update(GameTime gameTime)
         {
+            if (!Visible) return;
             base.Update(gameTime);
-            if (hoverControl != FindControlAt(Input.Position))
+            HoverControl = FindControlAt(Input.Position);
+            if (Input.MouseOnUI)
             {
-                hoverControl?.OnMouseLeave();
-                hoverControl = FindControlAt(Input.Position); 
-                hoverControl?.OnMouseEnter();
-                Input.MouseOnUI = hoverControl != null;
-            }
-            if(Input.MouseOnUI)
-            {
-                if (Input.OneShotMouseLeft(ButtonState.Pressed)) hoverControl?.OnMouseDown();
-                if (Input.OneShotMouseLeft(ButtonState.Released)) hoverControl?.OnMouseUp();
+                if (Input.OneShotMouseLeft(ButtonState.Pressed)) HoverControl?.OnMouseDown();
+                if (Input.OneShotMouseLeft(ButtonState.Released)) HoverControl?.OnMouseUp();
             }
             foreach (var control in Controls) control.Update(gameTime);
         }
         public override void Draw(GameTime gameTime)
         {
+            if (!Visible) return;
             base.Draw(gameTime);
             spriteBatch.Begin();
             foreach (var control in Controls) control.Draw(spriteBatch);

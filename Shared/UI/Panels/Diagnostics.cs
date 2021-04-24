@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
 
-namespace MG.Shared.UI.PrefabPanels
+namespace MG.Shared.UI.Panels
 {
-    public class DiagnosticsPanel : Panel
+    public class Diagnostics : Panel
     {
         public Label lblDraw;
         public Label lblUpdates;
@@ -18,7 +18,7 @@ namespace MG.Shared.UI.PrefabPanels
         private readonly string instance;
         private PerformanceCounter gcPerf;
 
-        public DiagnosticsPanel(Color back, Color fore, int col, int row, int colspan, int rowspan) : base(back, fore, col, row, colspan, rowspan)
+        public Diagnostics(Color back, Color fore, int col, int row, int colspan, int rowspan) : base(back, fore, col, row, colspan, rowspan)
         {
             Rows = 3;
             Collums = 4;

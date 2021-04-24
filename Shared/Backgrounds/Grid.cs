@@ -11,7 +11,7 @@ namespace MG.Shared.Background
         private Vector2 ScaleVertical;
         private Vector2[] LinesHorizontal;
         private Vector2[] LinesVertical;
-        public Grid(GraphicsDeviceManager graphics) : base(graphics)
+        public Grid(GraphicsDeviceManager graphics, int maskSize) : base(graphics, maskSize)
         {
         }
         public override void Draw(SpriteBatch spriteBatch)

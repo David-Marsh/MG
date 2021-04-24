@@ -11,6 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VoidControl.DX", "VoidContr
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared", "Shared\Shared.shproj", "{54D8CED4-50DD-4FA9-80FA-C25664BC47E9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B16F4B3A-0166-45EE-A9C8-627AF62E4210}"
+	ProjectSection(SolutionItems) = preProject
+		SolutionItems\Presentation on Joysticks.pdf = SolutionItems\Presentation on Joysticks.pdf
+		README.md = README.md
+		SolutionItems\ScreenShot.png = SolutionItems\ScreenShot.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared\Shared.projitems*{54d8ced4-50dd-4fa9-80fa-c25664bc47e9}*SharedItemsImports = 13

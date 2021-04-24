@@ -50,16 +50,20 @@ namespace MG.Shared.VoidControl
                 return approch;
             }
         }
-        public Vector2 Avoid => EntityManager.AvoidShips(Position);
+        public Vector2 Avoid => EntityManager.AvoidShips(this);
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
             if (IsExpired) return;
+            TargetRelativePosition = Target.Position - Position;
+            TargetRelativePositionSquared = TargetRelativePosition.LengthSquared();
             if (!TargetDetected)
             {
+                if (Velocity == Vector2.Zero) return;
+                base.Update(gameTime);
                 VelocityControl(Vector2.Zero, gameTime);
                 return;
             }
+            base.Update(gameTime);
             AccelerationControl(Stick(), gameTime);
             if (TargetInRange)
                 AutoShoot();
@@ -68,9 +72,10 @@ namespace MG.Shared.VoidControl
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
             if (IsExpired) return;
             if (!TargetDetected) return;
+            base.Draw(spriteBatch);
+            if (!PID.Visable) return;
             Rectangle destinationRectangle = new(0, 0, 8, 8);
             destinationRectangle.Location = (Position + Avoid).ToPoint();
             spriteBatch.Draw(Pixel, destinationRectangle, Color.Red);

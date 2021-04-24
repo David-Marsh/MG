@@ -1,6 +1,5 @@
 ﻿using MG.Shared.Global;
-using MG.Shared.UI.PrefabPanels;
-using MG.VoidControl;
+using MG.Shared.UI.Panels;
 using Microsoft.Xna.Framework;
 
 namespace MG.Shared.VoidControl
@@ -15,22 +14,21 @@ namespace MG.Shared.VoidControl
         protected override void Initialize()
         {
             Content.RootDirectory = "Content";
-            Components.Add(new EntityManager(this, graphics));
-            Components.Add(new UIManager(this, graphics));
+            SceneManager.Initialize(this, graphics);
             base.Initialize();
         }
         protected override void Update(GameTime gameTime)
         {
-            DiagnosticsPanel.StartTime();
+            Diagnostics.StartTime();
             Input.Update();                                                 // Enable oneshot keys
             base.Update(gameTime);
-            DiagnosticsPanel.StopUpdateTime();
+            Diagnostics.StopUpdateTime();
         }
         protected override void Draw(GameTime gameTime)
         {
-            DiagnosticsPanel.StartTime();
+            Diagnostics.StartTime();
             base.Draw(gameTime);
-            DiagnosticsPanel.StopDrawTime();
+            Diagnostics.StopDrawTime();
         }
     }
 }

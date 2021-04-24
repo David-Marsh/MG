@@ -30,7 +30,7 @@ namespace MG.VoidControl.Ship
             if(Rotation < 0)
                 Rotation += MathHelper.TwoPi;
             IsExpired |= Power <= 0;
-            color = Power < 0.2f ? Color.Lerp(Color.Transparent, Color.Yellow, Power * 5) : Color.Lerp(Color.Yellow, Color.Pink, (Power - 0.2f) * 1.25f);
+            Color = Power < 0.2f ? Color.Lerp(Color.Transparent, Color.Yellow, Power * 5) : Color.Lerp(Color.Yellow, Color.Pink, (Power - 0.2f) * 1.25f);
         }
     }
 }

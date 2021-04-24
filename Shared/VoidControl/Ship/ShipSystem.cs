@@ -33,23 +33,16 @@ namespace MG.VoidControl.Ship
         public static Color Spectrum(float hue)
         {
             hue *= 6;
-            switch ((int)hue)
+            return (int)hue switch
             {
-                case 0:
-                    return Color.Lerp(Color.Red, Color.Yellow, hue % 1);
-                case 1:
-                    return Color.Lerp(Color.Yellow, Color.Green, hue % 1);
-                case 2:
-                    return Color.Lerp(Color.Green, Color.Cyan, hue % 1);
-                case 3:
-                    return Color.Lerp(Color.Cyan, Color.Blue, hue % 1);
-                case 4:
-                    return Color.Lerp(Color.Blue, Color.Magenta, hue % 1);
-                case 5:
-                    return Color.Lerp(Color.Magenta, Color.Red, hue % 1);
-                default:
-                    return Color.Lerp(Color.Red, Color.Yellow, hue % 1);
-            }
+                0 => Color.Lerp(Color.Red, Color.Yellow, hue % 1),
+                1 => Color.Lerp(Color.Yellow, Color.Green, hue % 1),
+                2 => Color.Lerp(Color.Green, Color.Cyan, hue % 1),
+                3 => Color.Lerp(Color.Cyan, Color.Blue, hue % 1),
+                4 => Color.Lerp(Color.Blue, Color.Magenta, hue % 1),
+                5 => Color.Lerp(Color.Magenta, Color.Red, hue % 1),
+                _ => Color.Lerp(Color.Red, Color.Yellow, hue % 1),
+            };
         }
         public virtual void Draw(SpriteBatch spriteBatch, Vector2 position, float rotation)
         {

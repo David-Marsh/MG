@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using static MG.Shared.Global.Sprite;
 
 namespace MG.Shared.Global
@@ -57,7 +55,7 @@ namespace MG.Shared.Global
         }
         private int start;
         private readonly Particle[] array;
-        public static Random rand = new();
+        private static readonly Random rand = new();
         public ParticleManager()
         {
             array = new Particle[0x400];
@@ -74,11 +72,11 @@ namespace MG.Shared.Global
         }
         public int Count { get; set; }
 
-        public float NextFloat(float minValue, float maxValue)
+        public static float NextFloat(float minValue, float maxValue)
         {
             return (float)rand.NextDouble() * (maxValue - minValue) + minValue;
         }
-        public Vector2 NextVector2(float minLength, float maxLength)
+        public static Vector2 NextVector2(float minLength, float maxLength)
         {
             double theta = rand.NextDouble() * 2 * Math.PI;
             float length = NextFloat(minLength, maxLength);

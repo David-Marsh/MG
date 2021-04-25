@@ -22,7 +22,7 @@ namespace MG.Shared.VoidControl.UI.Panels
             Rows = 9;
             Collums = 8;
             mapArea = new(Color.Lime, fore, 0, 0, 8, 8) { CanHover = false };
-            labelZoom = new(Color.Gray, "Zoom:50", 2, 8, 4, 1) { CanHover = false };
+            labelZoom = new(Color.Gray, "Zoom:50", 2, 8, 4, 1);
             btnZoomOut = new(back, fore, ((char)0xF8AB).ToString(), 6, 8, 1, 1) { MenuButton = true, Delay = 150 };
             btnZoomIn = new(back, fore, ((char)0xF8AA).ToString(), 7, 8, 1, 1) { MenuButton = true, Delay = 150 };
             Controls.Add(mapArea);

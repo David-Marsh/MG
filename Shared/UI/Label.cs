@@ -11,10 +11,12 @@ namespace MG.Shared.UI
 
         public Label(Color fore, string text, int col, int row, int colspan, int rowspan) : base(Color.Transparent, fore, col, row, colspan, rowspan)
         {
+            CanHover = false;
             Msg.Text = text;
         }
         public Label(Color back, Color fore, string text, int col, int row, int colspan, int rowspan) : base(back, fore, col, row, colspan, rowspan)
         {
+            CanHover = false;
             Msg.Text = text;
         }
         public override void Draw(SpriteBatch spriteBatch)

@@ -43,6 +43,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)UI\ControlManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Label.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Panel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VoidControl\Entities\TitleEntities.cs" />
     <Compile Include="..\Shared\UI\Panels\AppControl.cs" />
     <Compile Include="..\Shared\UI\Panels\Diagnostics.cs" />
     <Compile Include="..\Shared\UI\Panels\TuningPID.cs" />

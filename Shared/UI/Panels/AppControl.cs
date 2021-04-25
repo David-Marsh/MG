@@ -16,8 +16,17 @@ namespace MG.Shared.UI.Panels
         private readonly Button btnFullScreen;
         private readonly Button btnExit;
 
-        public bool PauseGame;
+        private bool pauseGame;
         public bool MenuVisable = true;
+
+        public bool PauseGame
+        {
+            get => pauseGame; set
+            {
+                pauseGame = value;
+                btnPause.Msg.Text = pauseGame ? ((char)0xEDB4).ToString() : ((char)0xEDB5).ToString();
+            }
+        }
 
         public AppControl(Game game, GraphicsDeviceManager graphics, Color back, Color fore, int col, int row, int colspan, int rowspan) : base(back, fore, col, row, colspan, rowspan)
         {
@@ -44,7 +53,6 @@ namespace MG.Shared.UI.Panels
             btnPause.Clicked += new EventHandler(delegate (object o, EventArgs a)
             {
                 PauseGame = !PauseGame;
-                btnPause.Msg.Text = PauseGame ? ((char)0xEDB4).ToString() : ((char)0xEDB5).ToString();
             });
             btnMute.Clicked += new EventHandler(delegate (object o, EventArgs a)
             {

@@ -17,7 +17,7 @@ namespace MG.Shared.VoidControl.UI.Panels
         {
             Rows = 7;
             Collums = 10;
-            lblShipCount = new(Colors.Back, Colors.Fore, "Ships:050", 6, 0, 4, 1) { CanHover = false };
+            lblShipCount = new(Colors.Back, Colors.Fore, "Ships:050", 6, 0, 4, 1);
             btnSpawn = new(Colors.Back, Color.White, "Spawn", 0, 0, 3, 1);
             btnClear = new(Colors.Back, Color.White, "Clear", 3, 0, 3, 1);
             Controls.Add(lblShipCount);

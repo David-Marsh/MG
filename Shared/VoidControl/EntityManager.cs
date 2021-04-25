@@ -48,8 +48,6 @@ namespace MG.Shared.VoidControl
 		public EntityManager(Game game, GraphicsDeviceManager graphics) : base(game)
 		{
 			spriteBatch = new SpriteBatch(GraphicsDevice);
-			Entity.Initialize(Game.Content);
-			Sound.LoadContent(Game.Content);
 			Player = new Player();
             graphics.DeviceReset += Player.OnResize;
             Player.OnResize(graphics, null);

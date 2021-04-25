@@ -12,11 +12,13 @@ namespace MG.Shared.UI
         public int Delay;           // Repeat while held down every x mS unless x = 0
         private int Time;           // Remaining time until repeating
         public bool MenuButton;
-        public Button(Color back, Color fore, string text, int col, int row, int colspan, int rowspan) : base(back, fore, col, row, colspan, rowspan)
+        public Button(Color back, Color fore, string text, int col, int row, int colspan, int rowspan, bool canHover = true) : base(back, fore, col, row, colspan, rowspan)
         {
             MenuButton = false;
             Msg.Text = text;
-            MouseEnter += new EventHandler(delegate (object o, EventArgs a) { Sound.Drip(); });
+            CanHover = canHover;
+            if (canHover)
+                MouseEnter += new EventHandler(delegate (object o, EventArgs a) { Sound.Drip(); });
         }
         public override void Draw(SpriteBatch spriteBatch)
         {

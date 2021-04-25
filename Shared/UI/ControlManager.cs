@@ -40,7 +40,7 @@ namespace MG.Shared.UI
         public abstract void Setup(object sender, EventArgs e);     // Override to setup all controls size and positions
         public override void Update(GameTime gameTime)
         {
-            if (!Visible) return;
+            if (!Enabled) return;
             base.Update(gameTime);
             HoverControl = FindControlAt(Input.Position);
             if (Input.MouseOnUI)
@@ -65,6 +65,13 @@ namespace MG.Shared.UI
                 return panel.FindControlAt(position);
             else
                 return control;
+        }
+
+        protected override void OnEnabledChanged(object sender, EventArgs args)
+        {
+            HoverControl = null;
+            HoverControl = FindControlAt(Input.Position);
+            base.OnEnabledChanged(sender, args);
         }
     }
 }

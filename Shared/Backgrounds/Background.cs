@@ -2,49 +2,51 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-namespace MG.Shared.Background
+namespace MG.Shared.Backgrounds
 {
-    public abstract class Background
+    public abstract class Background : DrawableGameComponent
     {
         protected Rectangle DrawBounds;
         protected Rectangle CenterCell;
         private Point DrawBoundsOffset;
-
-        private int maskSize;
-        protected int mask;
-        public int MaskBits
+        private int cellSizeLog2, cellMask;
+        public int CellSizeLog2
         {
-            get => maskSize; set
+            get => cellSizeLog2; set
             {
-                maskSize = value;
-                CenterCell.Width = CenterCell.Height = 1 << maskSize;
-                mask = ~(CenterCell.Width - 1);
+                if (cellSizeLog2 == value) return;
+                cellSizeLog2 = value;
+                CenterCell.Width = CenterCell.Height = 1 << cellSizeLog2;
+                cellMask = ~(CenterCell.Width - 1);
+                OnResize(GraphicsDevice, null);
             }
         }
-        public Background(GraphicsDeviceManager graphics, int maskSize)
+        public Background(Game game) : base(game)
         {
-            MaskBits = maskSize;                                   
-            OnResize(graphics, null);
+        }
+        public abstract void Draw(SpriteBatch spriteBatch);
+        protected virtual void DrawBoundsChanged()
+        {
+            DrawBounds.Location = CenterCell.Location - DrawBoundsOffset;
+            DrawBounds.Size = DrawBoundsOffset + DrawBoundsOffset + CenterCell.Size;
         }
         public virtual void OnResize(object sender, EventArgs e)
         {
-            DrawBoundsOffset = new(((GraphicsDeviceManager)sender).PreferredBackBufferWidth, ((GraphicsDeviceManager)sender).PreferredBackBufferHeight);
-            DrawBoundsOffset.X /= 2;
-            DrawBoundsOffset.Y /= 2;
+            DrawBoundsOffset.X = ((GraphicsDevice)sender).Viewport.Width / 2;
+            DrawBoundsOffset.Y = ((GraphicsDevice)sender).Viewport.Height / 2;
             DrawBoundsOffset += CenterCell.Size;
-            DrawBoundsOffset.X &= mask;
-            DrawBoundsOffset.Y &= mask;
+            DrawBoundsOffset.X &= cellMask;
+            DrawBoundsOffset.Y &= cellMask;
             DrawBounds.Size = DrawBoundsOffset + DrawBoundsOffset + CenterCell.Size;
-        }
-        public virtual void Update(Vector2 screencenter)
-        {
-            if (CenterCell.Contains(screencenter)) return;
-            CenterCell.Location = screencenter.ToPoint();
-            CenterCell.X &= mask;
-            CenterCell.Y &= mask;
             DrawBoundsChanged();
         }
-        protected virtual void DrawBoundsChanged() => DrawBounds.Location = CenterCell.Location - DrawBoundsOffset;
-        public abstract void Draw(SpriteBatch spriteBatch);
+        public virtual void Update(Point screencenter)
+        {
+            if (CenterCell.Contains(screencenter)) return;
+            CenterCell.Location = screencenter;
+            CenterCell.X &= cellMask;
+            CenterCell.Y &= cellMask;
+            DrawBoundsChanged();
+        }
     }
 }

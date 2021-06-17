@@ -23,8 +23,8 @@ namespace MG.Shared.VoidControl.UI.Panels
             Controls.Add(lblShipCount);
             Controls.Add(btnSpawn);
             Controls.Add(btnClear);
-            btnSpawn.Clicked += new EventHandler(delegate (object o, EventArgs a) { EntityManager.Spawn(); PID.Visable = PIDPanel.Visible = true; });
-            btnClear.Clicked += new EventHandler(delegate (object o, EventArgs a) { EntityManager.Clear(); });
+            //btnSpawn.Clicked += new EventHandler(delegate (object o, EventArgs a) { EntityManager.Spawn(); PID.Visable = PIDPanel.Visible = true; });
+            //btnClear.Clicked += new EventHandler(delegate (object o, EventArgs a) { EntityManager.Clear(); });
             PIDPanel = new(Colors.Back, Colors.Fore, 0, 1, 10, 2) { Visible = false };
             Controls.Add(PIDPanel);
         }
@@ -40,7 +40,7 @@ namespace MG.Shared.VoidControl.UI.Panels
         }
         public override void Update(GameTime gameTime)
         {
-            lblShipCount.Msg.Text = EntityManager.ShipCount().ToString("Ships:000");
+            //lblShipCount.Msg.Text = EntityManager.ShipCount().ToString("Ships:000");
             PIDPanel.Update(gameTime);
             base.Update(gameTime);
         }

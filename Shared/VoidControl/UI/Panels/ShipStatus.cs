@@ -1,87 +1,70 @@
-﻿using MG.Shared.UI;
+﻿using MG.Shared.UI.Controls;
+using MG.Shared.VoidControl.Ship;
 using Microsoft.Xna.Framework;
 using System;
 
 namespace MG.Shared.VoidControl.UI.Panels
 {
-    public class ShipStatus : Panel
+    public class ShipStatus : UIPanel
     {
-        private readonly StatusBar statusReactor;
-        private readonly StatusBar statusThruster;
-        private readonly StatusBar statusShield;
-        private readonly StatusBar statusWeapons;
-        private readonly StatusBar statusSensors;
-        private readonly StatusBar statusCloak;
-        private readonly Button buttonAutoGun;
-        private readonly Button buttonAutoAim;
-        public ShipStatus(Color back, Color fore, int col, int row, int colspan, int rowspan) : base(back, fore, col, row, colspan, rowspan)
+        private readonly UIStatusBar statusReactor;
+        private readonly UIStatusBar statusThruster;
+        private readonly UIStatusBar statusShield;
+        private readonly UIStatusBar statusWeapons;
+        private readonly UIStatusBar statusSensors;
+        private readonly UIStatusBar statusCloak;
+        private readonly UIButton buttonAutoGun;
+        private readonly UIButton buttonAutoAim;
+        public VoidShipPC Player;
+        public ShipStatus(int x, int y, int width, int height, Color back = default) : base(x, y, width, height, back)
         {
-            Rows = 7;
-            Collums = 8;
+            statusReactor = new(0, 0, 4, 2, "Reactor", Colors.Back, Colors.Fore);
+            statusThruster = new(0, 2, 4, 2, "Thruster", Colors.Back, Colors.Fore);
+            statusShield = new(0, 4, 4, 2, "Shield", Colors.Back, Colors.Fore);
+            statusWeapons = new(4, 0, 4, 2, "Weapons", Colors.Back, Colors.Fore);
+            statusSensors = new(4, 2, 4, 2, "Sensors", Colors.Back, Colors.Fore);
+            statusCloak = new(4, 4, 4, 2, "Cloak", Colors.Back, Colors.Fore);
+            buttonAutoGun = new(0, 6, 2, 1, "AutoGun", Colors.Back, Colors.Fore);
+            buttonAutoAim = new(2, 6, 2, 1, "AutoAim", Colors.Back, Colors.Fore);
 
-            statusReactor = new(Colors.Back, Colors.Fore, "Reactor", 0, 0, 4, 2);
-            statusThruster = new(Colors.Back, Colors.Fore, "Thruster", 0, 2, 4, 2);
-            statusShield = new(Colors.Back, Colors.Fore, "Shield", 0, 4, 4, 2);
-            statusWeapons = new(Colors.Back, Colors.Fore, "Weapons", 4, 0, 4, 2);
-            statusSensors = new(Colors.Back, Colors.Fore, "Sensors", 4, 2, 4, 2);
-            statusCloak = new(Colors.Back, Colors.Fore, "Cloak", 4, 4, 4, 2);
-            buttonAutoGun = new(Colors.Back, Color.White, "AutoGun", 0, 6, 2, 1);
-            buttonAutoAim = new(Colors.Back, Color.White, "AutoAim", 2, 6, 2, 1);
+            Children.Add(statusReactor);
+            Children.Add(statusThruster);
+            Children.Add(statusShield);
+            Children.Add(statusWeapons);
+            Children.Add(statusSensors);
+            Children.Add(statusCloak);
+            Children.Add(buttonAutoGun);
+            Children.Add(buttonAutoAim);
 
-            Controls.Add(statusReactor);
-            Controls.Add(statusThruster);
-            Controls.Add(statusShield);
-            Controls.Add(statusWeapons);
-            Controls.Add(statusSensors);
-            Controls.Add(statusCloak);
-            Controls.Add(buttonAutoGun);
-            Controls.Add(buttonAutoAim);
-
-            statusReactor.PushStatus += new EventHandler<PushStatusEventArgs>(delegate (object o, PushStatusEventArgs a) 
-            { EntityManager.Player.Reactor.Quality = a.Value; Update(); });
-            statusThruster.PushStatus += new EventHandler<PushStatusEventArgs>(delegate (object o, PushStatusEventArgs a) 
-            { EntityManager.Player.Thruster.Quality = a.Value; Update(); });
-            statusShield.PushStatus += new EventHandler<PushStatusEventArgs>(delegate (object o, PushStatusEventArgs a) 
-            { EntityManager.Player.Shield.Quality = a.Value; Update(); });
-            statusWeapons.PushStatus += new EventHandler<PushStatusEventArgs>(delegate (object o, PushStatusEventArgs a) 
-            { EntityManager.Player.Weapons.Quality = a.Value; Update(); });
-            statusSensors.PushStatus += new EventHandler<PushStatusEventArgs>(delegate (object o, PushStatusEventArgs a) 
-            { EntityManager.Player.Sensor.Quality = a.Value; Update(); });
-            statusCloak.PushStatus += new EventHandler<PushStatusEventArgs>(delegate (object o, PushStatusEventArgs a) 
-            { EntityManager.Player.Cloak.Quality = a.Value; Update(); });
+            statusReactor.PushStatus += new EventHandler<PushStatusEventArgs>(delegate (object o, PushStatusEventArgs a)
+            { Player.Reactor.Quality = a.Value; });
+            statusThruster.PushStatus += new EventHandler<PushStatusEventArgs>(delegate (object o, PushStatusEventArgs a)
+            { Player.Thruster.Quality = a.Value; });
+            statusShield.PushStatus += new EventHandler<PushStatusEventArgs>(delegate (object o, PushStatusEventArgs a)
+            { Player.Shield.Quality = a.Value; });
+            statusWeapons.PushStatus += new EventHandler<PushStatusEventArgs>(delegate (object o, PushStatusEventArgs a)
+            { Player.Weapons.Quality = a.Value; });
+            statusSensors.PushStatus += new EventHandler<PushStatusEventArgs>(delegate (object o, PushStatusEventArgs a)
+            { Player.Sensor.Quality = a.Value; });
+            statusCloak.PushStatus += new EventHandler<PushStatusEventArgs>(delegate (object o, PushStatusEventArgs a)
+            { Player.Cloak.Quality = a.Value; });
             buttonAutoGun.Clicked += new EventHandler(delegate (object o, EventArgs a)
-            { EntityManager.Player.AutoGun = !EntityManager.Player.AutoGun; Update(); });
+            { Player.Weapons.AutoGun = !Player.Weapons.AutoGun;  });
             buttonAutoAim.Clicked += new EventHandler(delegate (object o, EventArgs a)
-            { EntityManager.Player.AutoAim = !EntityManager.Player.AutoAim; Update(); });
+            { Player.Weapons.AutoAim = !Player.Weapons.AutoAim;  });
         }
-        private void Update()
-        {
-            statusReactor.Value = EntityManager.Player.Reactor.Quality;
-            statusThruster.Value = EntityManager.Player.Thruster.Quality;
-            statusShield.Value = EntityManager.Player.Shield.Quality;
-            statusWeapons.Value = EntityManager.Player.Weapons.Quality;
-            statusSensors.Value = EntityManager.Player.Sensor.Quality;
-            statusCloak.Value = EntityManager.Player.Cloak.Quality;
-            buttonAutoGun.Fore(EntityManager.Player.AutoGun ? Color.Lime : Color.White);
-            buttonAutoAim.Fore(EntityManager.Player.AutoAim ? Color.Lime : Color.White);
-        }
+
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-        }
-        public override void Setup(Panel panel)
-        {
-            base.Setup(panel);
-            Padding = (int)Cellsize.X / 8;
-            statusReactor.Setup(this);
-            statusThruster.Setup(this);
-            statusShield.Setup(this);
-            statusWeapons.Setup(this);
-            statusSensors.Setup(this);
-            statusCloak.Setup(this);
-            buttonAutoGun.Setup(this);
-            buttonAutoAim.Setup(this);
-            Update();
+            statusReactor.Value = Player.Reactor.Quality;
+            statusThruster.Value = Player.Thruster.Quality;
+            statusShield.Value = Player.Shield.Quality;
+            statusWeapons.Value = Player.Weapons.Quality;
+            statusSensors.Value = Player.Sensor.Quality;
+            statusCloak.Value = Player.Cloak.Quality;
+            buttonAutoGun.Fore(Player.Weapons.AutoGun ? Color.Lime : Color.White);
+            buttonAutoAim.Fore(Player.Weapons.AutoAim ? Color.Lime : Color.White);
         }
     }
 }

@@ -5,8 +5,7 @@ using static MG.Shared.Global.Sprite;
 
 namespace MG.Shared.Global
 {
-    public class ParticleManager
-    {
+    public class Particles{
 		public class Particle
 		{
             #region Used in draw function
@@ -45,7 +44,7 @@ namespace MG.Shared.Global
                 Life -= Decay;
                 IsExpired = Life <= 0;
                 position += Velocity;
-                color = Color.Lerp(Color.Transparent, startingcolor, Life);
+                color = Color.Lerp(Color.Transparent, startingcolor, Life * Life);
             }
             public void Draw(SpriteBatch spriteBatch)
             {
@@ -56,7 +55,7 @@ namespace MG.Shared.Global
         private int start;
         private readonly Particle[] array;
         private static readonly Random rand = new();
-        public ParticleManager()
+        public Particles()
         {
             array = new Particle[0x400];
             for (int i = 0; i < array.Length; i++)
@@ -86,7 +85,7 @@ namespace MG.Shared.Global
         {
             Vector2 velocity;
             Vector2 scale = Vector2.One * 6;
-            for (int i = 0; i < 256; i++)
+            for (int i = 0; i < 128; i++)
             {
                 velocity = NextVector2(0.1f, 0.5f);
                 Add(position, Color.White, scale, velocity, 0.003f);

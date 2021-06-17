@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using static MG.Shared.Global.Sprite;
 
-namespace MG.Shared.Background
+namespace MG.Shared.Backgrounds
 {
-    public class Grid : Background
+    public class Grid : Background_Old
     {
         private Vector2 ScaleHorizontal;
         private Vector2 ScaleVertical;

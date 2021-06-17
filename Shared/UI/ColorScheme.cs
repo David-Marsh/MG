@@ -2,7 +2,7 @@
 
 namespace MG.Shared.UI
 {
-    public struct ColorScheme
+    public struct ColorScheme 
     {
         public ColorScheme(Color back) : this(Color.Gray, back)
         {
@@ -14,10 +14,10 @@ namespace MG.Shared.UI
         public void Init(Color fore, Color back, bool enable = true, bool hovering = false)
         {
             Fore = ForeNormal = fore;
-            ForeHover = new Color(Fore.PackedValue ^ 0x00404040);     // flip bit 7 in R,G and B to change shade of ARGB color
+            ForeHover = new Color(Fore.PackedValue ^ 0x40404040);     // flip bit 7 in R,G and B to change shade of ARGB color
             ForeDisabled = Color.Lerp(Fore, Color.Gray, 0.5f);        // Shift to grey
             Back = BackNormal = back;
-            BackHover = new Color(Back.PackedValue ^ 0x00404040);     // flip bit 7 in R,G and B to change shade of ARGB color
+            BackHover = new Color(Back.PackedValue ^ 0x40404040);     // flip bit 7 in R,G and B to change shade of ARGB color
             BackDisabled = Color.Lerp(Back, Color.Gray, 0.5f);        // Shift to grey
             Set(enable, hovering);
         }

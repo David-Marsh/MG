@@ -121,6 +121,12 @@
 /processorParam:Quality=Best
 /build:Audio/Fuzz.wav
 
+#begin Audio/Impulse44.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Impulse44.wav
+
 #begin Audio/Thrust.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

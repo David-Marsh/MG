@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 
-namespace MG.Shared.Background
+namespace MG.Shared.Backgrounds
 {
     public enum Setting
     {
@@ -16,7 +16,7 @@ namespace MG.Shared.Background
     public static class BackgroundManager
     {
         private static GraphicsDeviceManager graphics;
-        private static Background background;
+        private static Background_Old background;
         private static Setting setting;
         private static readonly int maskSize = 7;
         public static Setting Setting
@@ -28,7 +28,7 @@ namespace MG.Shared.Background
                 setting = value;
                 background = value switch
                 {
-                    Setting.Starfield => new Starfield(graphics, maskSize),
+                    Setting.Starfield => new Starfield_Old(graphics, maskSize),
                     Setting.Grid => new Grid(graphics, maskSize),
                     Setting.Default => new Grid(graphics, maskSize),
                     Setting.Other => new Grid(graphics, maskSize),
@@ -36,13 +36,14 @@ namespace MG.Shared.Background
                 };
             }
         }
-        public static void Initialize(GraphicsDeviceManager graphicsDeviceManager)
+       public static void Initialize(GraphicsDeviceManager graphicsDeviceManager)
         {
             graphics = graphicsDeviceManager;
             graphics.DeviceReset += OnResize;
             Setting = Setting.Starfield;
         }
         public static void OnResize(object sender, EventArgs e) => background.OnResize(sender, e);
+        public static void OnResize(GraphicsDevice graphicsDevice) => background.OnResize(graphicsDevice);
         public static void Update(Vector2 screencenter)
         {
             if (Input.OneShotKey(Keys.B))

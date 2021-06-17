@@ -1,36 +1,35 @@
 ﻿using MG.Shared.Global;
-using MG.Shared.UI.Panels;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace MG.Shared.VoidControl
+namespace MG.Shared.Test.UI
 {
-    public class VoidControl : Game
+    public class TestUI : Game
     {
-        public GraphicsDeviceManager graphics;
-        public VoidControl()
+        public TestUI()
         {
-            graphics = new GraphicsDeviceManager(this) { IsFullScreen = true, HardwareModeSwitch = false, GraphicsProfile = GraphicsProfile.HiDef };
+            _ = new GraphicsDeviceManager(this)
+            {
+                IsFullScreen = true,
+                HardwareModeSwitch = false,
+                GraphicsProfile = GraphicsProfile.HiDef
+            };
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            _ = new Binder(this);
+            _ = new Scenes(this);
         }
         protected override void Update(GameTime gameTime)
         {
-            UIDiagnostics.StartTime();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            Input.Update();                                                 // Enable oneshot keys
+            Input.Update();
             base.Update(gameTime);
-            UIDiagnostics.StopUpdateTime();
         }
         protected override void Draw(GameTime gameTime)
         {
-            UIDiagnostics.StartTime();
             GraphicsDevice.Clear(Color.Black);
             base.Draw(gameTime);
-            UIDiagnostics.StopDrawTime();
         }
     }
 }

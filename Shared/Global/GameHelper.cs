@@ -3,8 +3,9 @@ using System.Windows.Forms;
 
 namespace MG.Shared.Global
 {
-    public static class GameExtention
+    public static class GameHelper
     {
+        public const float ScanTime = 1/60f;
         public static void FullScreen(this Game game, GraphicsDeviceManager graphics) => game.SetFormState(graphics, FormWindowState.Normal, true);
         public static void Maximize(this Game game, GraphicsDeviceManager graphics) => game.SetFormState(graphics, FormWindowState.Maximized);
         public static void Normalize(this Game game, GraphicsDeviceManager graphics) => game.SetFormState(graphics, FormWindowState.Normal);

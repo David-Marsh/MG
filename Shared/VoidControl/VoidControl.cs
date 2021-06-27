@@ -6,31 +6,31 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MG.Shared.VoidControl
 {
-    public class VoidControl : Game
+  public class VoidControl : Game
+  {
+    public GraphicsDeviceManager graphics;
+    public VoidControl()
     {
-        public GraphicsDeviceManager graphics;
-        public VoidControl()
-        {
-            graphics = new GraphicsDeviceManager(this) { IsFullScreen = true, HardwareModeSwitch = false, GraphicsProfile = GraphicsProfile.HiDef };
-            Content.RootDirectory = "Content";
-            IsMouseVisible = true;
-            _ = new Binder(this);
-        }
-        protected override void Update(GameTime gameTime)
-        {
-            UIDiagnostics.StartTime();
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-            Input.Update();                                                 // Enable oneshot keys
-            base.Update(gameTime);
-            UIDiagnostics.StopUpdateTime();
-        }
-        protected override void Draw(GameTime gameTime)
-        {
-            UIDiagnostics.StartTime();
-            GraphicsDevice.Clear(Color.Black);
-            base.Draw(gameTime);
-            UIDiagnostics.StopDrawTime();
-        }
+      graphics = new GraphicsDeviceManager(this) { IsFullScreen = true, HardwareModeSwitch = false, GraphicsProfile = GraphicsProfile.HiDef };
+      Content.RootDirectory = "Content";
+      IsMouseVisible = true;
+      _ = new Binder(this);
     }
+    protected override void Update(GameTime gameTime)
+    {
+      Diagnostics.StartTime();
+      if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+        Exit();
+      Input.Update();                                                 // Enable oneshot keys
+      base.Update(gameTime);
+      Diagnostics.StopUpdateTime();
+    }
+    protected override void Draw(GameTime gameTime)
+    {
+      Diagnostics.StartTime();
+      GraphicsDevice.Clear(Color.Black);
+      base.Draw(gameTime);
+      Diagnostics.StopDrawTime();
+    }
+  }
 }

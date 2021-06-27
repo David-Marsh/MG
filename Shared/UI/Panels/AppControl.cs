@@ -1,107 +1,100 @@
 ﻿using MG.Shared.Global;
+using MG.Shared.UI.Controls;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace MG.Shared.UI.Panels
 {
-    public class AppControl : Panel
+  public class AppControl : UIManager
+  {
+    private Panel appControl;
+    private Button btnPause;
+    private Button btnMute;
+    private Button btnMenu;
+    private Button btnMinimize;
+    private Button btnNormalize;
+    private Button btnMaximize;
+    private Button btnFullScreen;
+    private Button btnExit;
+    private bool pauseGame = true;
+    public bool PauseGame
     {
-        public readonly Button btnPause;
-        private readonly Button btnMute;
-        public readonly Button btnMenu;
-        private readonly Button btnMinimize;
-        private readonly Button btnNormalize;
-        private readonly Button btnMaximize;
-        private readonly Button btnFullScreen;
-        private readonly Button btnExit;
-
-        private bool pauseGame;
-        public bool MenuVisable = true;
-
-        public bool PauseGame
-        {
-            get => pauseGame; set
-            {
-                pauseGame = value;
-                btnPause.Msg.Text = pauseGame ? ((char)0xEDB4).ToString() : ((char)0xEDB5).ToString();
-            }
-        }
-
-        public AppControl(Game game, GraphicsDeviceManager graphics, Color back, Color fore, int col, int row, int colspan, int rowspan) : base(back, fore, col, row, colspan, rowspan)
-        {
-            Rows = 1;
-            Collums = 8;
-            btnPause = new(Colors.Back, Color.Blue, ((char)0xEDB4).ToString(), 0, 0, 1, 1) { MenuButton = true };
-            btnMute = new(Colors.Back, Color.Cyan, ((char)0xE995).ToString(), 1, 0, 1, 1) { MenuButton = true };
-            btnMenu = new(Colors.Back, Color.Lime, ((char)0xE700).ToString(), 2, 0, 1, 1) { MenuButton = true };
-            btnMinimize = new(Colors.Back, Color.Yellow, ((char)0xE921).ToString(), 3, 0, 1, 1) { MenuButton = true };
-            btnNormalize = new(Colors.Back, Color.Yellow, ((char)0xE923).ToString(), 4, 0, 1, 1) { MenuButton = true };
-            btnMaximize = new(Colors.Back, Color.Yellow, ((char)0xE922).ToString(), 5, 0, 1, 1) { MenuButton = true };
-            btnFullScreen = new(Colors.Back, Color.Yellow, ((char)0xE92D).ToString(), 6, 0, 1, 1) { MenuButton = true };
-            btnExit = new(Colors.Back, Color.Red, ((char)0xE8BB).ToString(), 7, 0, 1, 1) { MenuButton = true };
-
-            Controls.Add(btnPause);
-            Controls.Add(btnMute);
-            Controls.Add(btnMenu);
-            Controls.Add(btnMinimize);
-            Controls.Add(btnNormalize);
-            Controls.Add(btnMaximize);
-            Controls.Add(btnFullScreen);
-            Controls.Add(btnExit);
-
-            btnPause.Clicked += new EventHandler(delegate (object o, EventArgs a)
-            {
-                PauseGame = !PauseGame;
-            });
-            btnMute.Clicked += new EventHandler(delegate (object o, EventArgs a)
-            {
-                Sound.Mute = !Sound.Mute;
-                btnMute.Msg.Text = Sound.Mute ? ((char)0xE198).ToString() : ((char)0xE995).ToString();
-            });
-            btnMenu.Clicked += new EventHandler(delegate (object o, EventArgs a)
-            {
-                MenuVisable = !MenuVisable;
-            });
-            btnMinimize.Clicked += new EventHandler(delegate (object o, EventArgs a)
-            {
-                game.Minimize(graphics);
-            });
-            btnNormalize.Clicked += new EventHandler(delegate (object o, EventArgs a)
-            {
-                game.Normalize(graphics);
-            });
-            btnMaximize.Clicked += new EventHandler(delegate (object o, EventArgs a)
-            {
-                game.Maximize(graphics);
-            });
-            btnFullScreen.Clicked += new EventHandler(delegate (object o, EventArgs a)
-            {
-                game.FullScreen(graphics);
-            });
-            btnExit.Clicked += new EventHandler(delegate (object o, EventArgs a)
-            {
-                game.Exit();
-            });
-        }
-
-        public override void Setup()
-        {
-            base.Setup();
-            Padding = (int)Cellsize.X / 6;
-            btnPause.Setup(this);
-            btnMute.Setup(this);
-            btnMenu.Setup(this);
-            btnMinimize.Setup(this);
-            btnNormalize.Setup(this);
-            btnMaximize.Setup(this);
-            btnFullScreen.Setup(this);
-            btnExit.Setup(this);
-        }
-        public override void Update(GameTime gameTime)
-        {
-            if (Input.OneShotKey(Keys.Tab)) btnMaximize.OnClicked();
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)) btnExit.OnClicked();
-        }
+      get => pauseGame; set
+      {
+        pauseGame = value;
+        if (!(btnPause is null)) btnPause.Text = pauseGame ? ((char)0xEDB4).ToString() : ((char)0xEDB5).ToString();
+        Pause?.Invoke(this, new EventArgs());
+      }
     }
+    public bool MenuVisable { get; set; } = true;
+    public event EventHandler Menu;
+    public event EventHandler Pause;
+    public AppControl(Game game) : base(game)
+    {
+    }
+    public virtual void ReSize(object sender, EventArgs e)
+    {
+      appControl.SizeTo(64, 36, (GraphicsDeviceManager)sender);
+    }
+    protected override void LoadContent()
+    {
+      appControl = new Panel(56, 0, 8, 1, Color.Transparent);
+      btnPause = new(0, 0, 1, 1, ((char)0xEDB4).ToString(), Color.Transparent, Color.Blue, true);
+      PauseGame = pauseGame;
+      btnMute = new(1, 0, 1, 1, ((char)0xE995).ToString(), Color.Transparent, Color.Cyan, true);
+      btnMenu = new(2, 0, 1, 1, ((char)0xE700).ToString(), Color.Transparent, Color.Lime, true);
+      btnMinimize = new(3, 0, 1, 1, ((char)0xE921).ToString(), Color.Transparent, Color.Yellow, true);
+      btnNormalize = new(4, 0, 1, 1, ((char)0xE923).ToString(), Color.Transparent, Color.Yellow, true);
+      btnMaximize = new(5, 0, 1, 1, ((char)0xE922).ToString(), Color.Transparent, Color.Yellow, true);
+      btnFullScreen = new(6, 0, 1, 1, ((char)0xE92D).ToString(), Color.Transparent, Color.Yellow, true);
+      btnExit = new(7, 0, 1, 1, ((char)0xE8BB).ToString(), Color.Transparent, Color.Red, true);
+      appControl.Children.Add(btnPause);
+      appControl.Children.Add(btnMute);
+      appControl.Children.Add(btnMenu);
+      appControl.Children.Add(btnMinimize);
+      appControl.Children.Add(btnNormalize);
+      appControl.Children.Add(btnMaximize);
+      appControl.Children.Add(btnFullScreen);
+      appControl.Children.Add(btnExit);
+      Children.Add(appControl);
+      ((GraphicsDeviceManager)Game.Services.GetService<IGraphicsDeviceService>()).DeviceReset += ReSize;
+      btnPause.Clicked += new EventHandler(delegate (object o, EventArgs a)
+      {
+        PauseGame = pauseGame;
+      });
+      btnMute.Clicked += new EventHandler(delegate (object o, EventArgs a)
+      {
+        Sound.Mute = !Sound.Mute;
+        btnMute.Text = Sound.Mute ? ((char)0xE198).ToString() : ((char)0xE995).ToString();
+      });
+      btnMenu.Clicked += new EventHandler(delegate (object o, EventArgs a)
+      {
+        MenuVisable = !MenuVisable;
+        Menu?.Invoke(this, new EventArgs());
+      });
+      btnMinimize.Clicked += new EventHandler(delegate (object o, EventArgs a)
+      {
+        Game.Minimize((GraphicsDeviceManager)Game.Services.GetService<IGraphicsDeviceService>());
+      });
+      btnNormalize.Clicked += new EventHandler(delegate (object o, EventArgs a)
+      {
+        Game.Normalize((GraphicsDeviceManager)Game.Services.GetService<IGraphicsDeviceService>());
+      });
+      btnMaximize.Clicked += new EventHandler(delegate (object o, EventArgs a)
+      {
+        Game.Maximize((GraphicsDeviceManager)Game.Services.GetService<IGraphicsDeviceService>());
+      });
+      btnFullScreen.Clicked += new EventHandler(delegate (object o, EventArgs a)
+      {
+        Game.FullScreen((GraphicsDeviceManager)Game.Services.GetService<IGraphicsDeviceService>());
+      });
+      btnExit.Clicked += new EventHandler(delegate (object o, EventArgs a)
+      {
+        Game.Exit();
+      });
+      appControl.SizeTo(64, 36, GraphicsDevice);
+      base.LoadContent();
+    }
+  }
 }

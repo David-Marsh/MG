@@ -30,11 +30,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Global\Entities\FullEntityChild.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Global\Entities\FullEntityParent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Controls\IMouseControl.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UI\Controls\UIStatusBar.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UI\Panels\UIDiagnostics.cs" />
+    <Compile Include="..\Shared\UI\Controls\StatusBar.cs" />
+    <Compile Include="..\Shared\UI\Panels\Diagnostics.cs" />
+    <Compile Include="..\Shared\UI\Panels\TuningPID.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VoidControl\Ship\Bullets.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VoidControl\Ship\Ships.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)VoidControl\Ship\SubSystems\Cloak.cs" />
+    <Compile Include="..\Shared\VoidControl\Ship\SubSystems\ECM.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VoidControl\Ship\SubSystems\Reactor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VoidControl\Ship\SubSystems\Sensor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VoidControl\Ship\SubSystems\Shield.cs" />
@@ -45,6 +46,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)VoidControl\Ship\VoidShipNPC.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VoidControl\Ship\VoidShipPC.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VoidControl\UI\Level01UI.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VoidControl\UI\Panels\Debuging.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VoidControl\UI\Panels\MiniMap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VoidControl\UI\Panels\ShipStatus.cs" />
     <Compile Include="..\Shared\VoidControl\Scenes\Level01Scene.cs" />
@@ -58,11 +60,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Test\UI\Scenes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Test\UI\TestUI.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Test\UI\TitleUI.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UI\AppUI.cs" />
+    <Compile Include="..\Shared\UI\Panels\AppControl.cs" />
     <Compile Include="..\Shared\VoidControl\Binder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VoidControl\Scenes\TitleScene.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VoidControl\UI\TitleUI.cs" />
-    <Compile Include="..\Shared\UI\Controls\UIButton.cs" />
+    <Compile Include="..\Shared\UI\Controls\Button.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\UIManager.cs" />
     <Compile Include="..\Shared\Global\Entities\BasicEntityChild.cs" />
     <Compile Include="..\Shared\Global\Entities\BasicEntityParent.cs" />
@@ -73,20 +75,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Global\PID.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Global\Sound.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Global\Sprite.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UI\Button.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\ColorScheme.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UI\Control.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UI\ControlManager.cs" />
-    <Compile Include="..\Shared\UI\Controls\UIPanel.cs" />
-    <Compile Include="..\Shared\UI\Controls\UIRectangle.cs" />
-    <Compile Include="..\Shared\UI\Controls\UILabel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UI\Label.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UI\Panel.cs" />
-    <Compile Include="..\Shared\UI\Panels\AppControl.cs" />
-    <Compile Include="..\Shared\UI\Panels\Diagnostics.cs" />
-    <Compile Include="..\Shared\UI\Panels\TuningPID.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UI\StatusBar.cs" />
-    <Compile Include="..\Shared\VoidControl\UI\Panels\Debuging.cs" />
+    <Compile Include="..\Shared\UI\Controls\Panel.cs" />
+    <Compile Include="..\Shared\UI\Controls\Rectangle.cs" />
+    <Compile Include="..\Shared\UI\Controls\Label.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VoidControl\VoidControl.cs" />
   </ItemGroup>
   <ItemGroup>

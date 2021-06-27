@@ -1,110 +1,88 @@
 ﻿using MG.Shared.Global;
+using MG.Shared.UI.Controls;
 using Microsoft.Xna.Framework;
 using System;
 
 namespace MG.Shared.UI.Panels
 {
-    public class TuningPID : Panel
+  public class TuningPID : Panel
+  {
+    private readonly Button btnKpInc;
+    private readonly Button btnKpDec;
+    private readonly Label lblKp;
+    private readonly Label lblP;
+    private readonly Button btnKiInc;
+    private readonly Button btnKiDec;
+    private readonly Label lblKi;
+    private readonly Label lblI;
+    private readonly Button btnKdInc;
+    private readonly Button btnKdDec;
+    private readonly Label lblKd;
+    private readonly Label lblD;
+    public TuningPID(int x, int y, int width, int height, Color back = default) : base(x, y, width, height, back)
     {
-        private readonly Button btnKpInc;
-        private readonly Button btnKpDec;
-        private readonly Label lblKp;
-        private readonly Label lblP;
-        private readonly Button btnKiInc;
-        private readonly Button btnKiDec;
-        private readonly Label lblKi;
-        private readonly Label lblI;
-        private readonly Button btnKdInc;
-        private readonly Button btnKdDec;
-        private readonly Label lblKd;
-        private readonly Label lblD;
-
-        public TuningPID(Color back, Color fore, int col, int row, int colspan, int rowspan) : base(back, fore, col, row, colspan, rowspan)
-        {
-            Rows = 3;
-            Collums = 10;
-
-            lblKp = new(Colors.Back, Colors.Fore, "Kp:0.0000000", 0, 0, 5, 1);
-            btnKpDec = new(Colors.Back, Color.White, ((char)0xF8AB).ToString(), 5, 0, 1, 1) { MenuButton = true, Delay = 150 };
-            btnKpInc = new(Colors.Back, Color.White, ((char)0xF8AA).ToString(), 6, 0, 1, 1) { MenuButton = true, Delay = 150 };
-            lblP = new(Colors.Back, Colors.Fore, "P:0.0000", 7, 0, 3, 1);
-            Controls.Add(lblKp);
-            Controls.Add(lblP);
-            Controls.Add(btnKpInc);
-            Controls.Add(btnKpDec);
-            lblKi = new(Colors.Back, Colors.Fore, "Ki:0.0000000", 0, 1, 5, 1);
-            btnKiDec = new(Colors.Back, Color.White, ((char)0xF8AB).ToString(), 5, 1, 1, 1) { MenuButton = true, Delay = 150 };
-            btnKiInc = new(Colors.Back, Color.White, ((char)0xF8AA).ToString(), 6, 1, 1, 1) { MenuButton = true, Delay = 150 };
-            lblI = new(Colors.Back, Colors.Fore, "I:0.0000", 7, 1, 3, 1);
-            Controls.Add(lblKi);
-            Controls.Add(lblI);
-            Controls.Add(btnKiInc);
-            Controls.Add(btnKiDec);
-            lblKd = new(Colors.Back, Colors.Fore, "Kd:0.0000000", 0, 2, 5, 1);
-            btnKdDec = new(Colors.Back, Color.White, ((char)0xF8AB).ToString(), 5, 2, 1, 1) { MenuButton = true, Delay = 150 };
-            btnKdInc = new(Colors.Back, Color.White, ((char)0xF8AA).ToString(), 6, 2, 1, 1) { MenuButton = true, Delay = 150 };
-            lblD = new(Colors.Back, Colors.Fore, "D:0.0000", 7, 2, 3, 1);
-            Controls.Add(lblKd);
-            Controls.Add(lblD);
-            Controls.Add(btnKdInc);
-            Controls.Add(btnKdDec);
-
-            btnKpInc.Clicked += new EventHandler(delegate (object o, EventArgs a)
-            {
-                PID.Tuning.Kp += 0.0001f;
-            });
-            btnKpDec.Clicked += new EventHandler(delegate (object o, EventArgs a)
-            {
-                PID.Tuning.Kp -= 0.0001f;
-            });
-            btnKiInc.Clicked += new EventHandler(delegate (object o, EventArgs a)
-            {
-                PID.Tuning.Ki += 0.0000001f;
-            });
-            btnKiDec.Clicked += new EventHandler(delegate (object o, EventArgs a)
-            {
-                PID.Tuning.Ki -= 0.0000001f;
-            });
-            btnKdInc.Clicked += new EventHandler(delegate (object o, EventArgs a)
-            {
-                PID.Tuning.Kd += 0.01f;
-            });
-            btnKdDec.Clicked += new EventHandler(delegate (object o, EventArgs a)
-            {
-                PID.Tuning.Kd -= 0.01f;
-            });
-        }
-
-        public override void Setup()
-        {
-            base.Setup();
-            Padding = (int)Cellsize.X / 10;
-
-            lblKp.Setup(this);
-            btnKpDec.Setup(this);
-            btnKpInc.Setup(this);
-            lblP.Setup(this);
-
-            lblKi.Setup(this);
-            btnKiDec.Setup(this);
-            btnKiInc.Setup(this);
-            lblI.Setup(this);
-
-            lblKd.Setup(this);
-            btnKdDec.Setup(this);
-            btnKdInc.Setup(this);
-            lblD.Setup(this);
-        }
-        public override void Update(GameTime gameTime)
-        {
-            if (!PID.Visable) return;
-            lblKp.Msg.Text = PID.Tuning.Kp.ToString("Kp:0.0000000");
-            lblKi.Msg.Text = PID.Tuning.Ki.ToString("Ki:0.0000000");
-            lblKd.Msg.Text = PID.Tuning.Kd.ToString("Kd:0.0000000");
-            lblP.Msg.Text = PID.Tuning.P.Length().ToString("P:0.00");
-            lblI.Msg.Text = PID.Tuning.I.Length().ToString("I:0.00");
-            lblD.Msg.Text = PID.Tuning.D.Length().ToString("D:0.00");
-            base.Update(gameTime);
-        }
+      lblKp = new(0, 0, 4, 1, "Kp:0.0000000", Colors.Back, Colors.Fore);
+      btnKpDec = new(4, 0, 1, 1, ((char)0xF8AB).ToString(), Colors.Back, Color.White) { Menu = true, Delay = 150 };
+      btnKpInc = new(5, 0, 1, 1, ((char)0xF8AA).ToString(), Colors.Back, Color.White) { Menu = true, Delay = 150 };
+      lblP = new(6, 0, 2, 1, "P:+0.00", Colors.Back, Colors.Fore);
+      Children.Add(lblKp);
+      Children.Add(lblP);
+      Children.Add(btnKpInc);
+      Children.Add(btnKpDec);
+      lblKi = new(0, 1, 4, 1, "Ki:0.0000000", Colors.Back, Colors.Fore);
+      btnKiDec = new(4, 1, 1, 1, ((char)0xF8AB).ToString(), Colors.Back, Color.White) { Menu = true, Delay = 150 };
+      btnKiInc = new(5, 1, 1, 1, ((char)0xF8AA).ToString(), Colors.Back, Color.White) { Menu = true, Delay = 150 };
+      lblI = new(6, 1, 2, 1, "I:+0.00", Colors.Back, Colors.Fore);
+      Children.Add(lblKi);
+      Children.Add(lblI);
+      Children.Add(btnKiInc);
+      Children.Add(btnKiDec);
+      lblKd = new(0, 2, 4, 1, "Kd:0.0000000", Colors.Back, Colors.Fore);
+      btnKdDec = new(4, 2, 1, 1, ((char)0xF8AB).ToString(), Colors.Back, Color.White) { Menu = true, Delay = 150 };
+      btnKdInc = new(5, 2, 1, 1, ((char)0xF8AA).ToString(), Colors.Back, Color.White) { Menu = true, Delay = 150 };
+      lblD = new(6, 2, 2, 1, "D:+0.00", Colors.Back, Colors.Fore);
+      Children.Add(lblKd);
+      Children.Add(lblD);
+      Children.Add(btnKdInc);
+      Children.Add(btnKdDec);
+      PID.Tuning = new(0, 0, 0);
+      PID.Visable = true;
+      btnKpInc.Clicked += new EventHandler(delegate (object o, EventArgs a)
+      {
+        PID.Tuning.Kp += 0.0001f;
+      });
+      btnKpDec.Clicked += new EventHandler(delegate (object o, EventArgs a)
+      {
+        PID.Tuning.Kp -= 0.0001f;
+      });
+      btnKiInc.Clicked += new EventHandler(delegate (object o, EventArgs a)
+      {
+        PID.Tuning.Ki += 0.0000001f;
+      });
+      btnKiDec.Clicked += new EventHandler(delegate (object o, EventArgs a)
+      {
+        PID.Tuning.Ki -= 0.0000001f;
+      });
+      btnKdInc.Clicked += new EventHandler(delegate (object o, EventArgs a)
+      {
+        PID.Tuning.Kd += 0.01f;
+      });
+      btnKdDec.Clicked += new EventHandler(delegate (object o, EventArgs a)
+      {
+        PID.Tuning.Kd -= 0.01f;
+      });
     }
+    public override void Update(GameTime gameTime)
+    {
+      Visable = PID.Visable;
+      if (!visable) return;
+      lblKp.Text = PID.Tuning.Kp.ToString("Kp:0.0000000");
+      lblKi.Text = PID.Tuning.Ki.ToString("Ki:0.0000000");
+      lblKd.Text = PID.Tuning.Kd.ToString("Kd:0.0000000");
+      lblP.Text = PID.Tuning.P.Length().ToString("P:0.00");
+      lblI.Text = PID.Tuning.I.Length().ToString("I:0.00");
+      lblD.Text = PID.Tuning.D.Length().ToString("D:0.00");
+      base.Update(gameTime);
+    }
+  }
 }

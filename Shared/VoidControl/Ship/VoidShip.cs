@@ -3,6 +3,7 @@ using MG.Shared.VoidControl.Ship.SubSystems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace MG.Shared.VoidControl.Ship
 {
@@ -35,12 +36,12 @@ namespace MG.Shared.VoidControl.Ship
       this.scale = Vector2.One * scale;
       Texture = Content.Load<Texture2D>("Art/VoidShip/VoidShip");
       Radius = Math.Max(origin.X, origin.Y) * scale;
-      ECM = new(scale, 0.0f);
       Reactor = new(scale, 1f);
-      Sensor = new(scale, 0.0f);
       Shield = new(scale, 1f);
       Thruster = new(scale, 1f);
       Weapons = new(scale, 1f);
+      Sensor = new(scale, 0.5f);
+      ECM = new(scale, 0.3f);
     }
     public override void Draw(SpriteBatch spriteBatch)
     {

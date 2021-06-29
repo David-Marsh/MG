@@ -39,6 +39,7 @@ namespace MG.Shared.VoidControl.Ship
     public VoidShipPC Player { get => (VoidShipPC)array[0]; set => array[0] = value; }
     public int Visable { get; set; }
     public int Enabled { get; set; }
+    public int Total { get => total; }
     public Ships()
     {
       array = new VoidShip[0x400];
@@ -78,11 +79,25 @@ namespace MG.Shared.VoidControl.Ship
       for (int i = 1; i < total; i++)
       {
         if (array[i].Dead) continue;
+        if (!array[i].Visible) continue;
         shipDot.Location = array[i].Position.ToPoint();
         spriteBatch.Draw(Sprite.Pixel, shipDot, Color.Red);
       }
     }
     #region Add Remove Spawn
+    public void SpawnClick()
+    {
+      array[0].Dead = false;
+      array[0].Visible = array[0].Enabled = true;
+      array[0].Shield.Power = 1;
+      Spawn();
+    }
+    public void ClearClick()
+    {
+      for (int i = 1; i < total; i++)
+        array[i].UID = Point.Zero;
+      Enabled = Visable = total = 1;
+    }
     private void Spawn()
     {
       Point point, dist;

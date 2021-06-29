@@ -1,6 +1,9 @@
-﻿using MG.Shared.UI.Controls;
+﻿using MG.Shared.Global;
+using MG.Shared.UI.Controls;
 using MG.Shared.UI.Panels;
+using MG.Shared.VoidControl.Ship;
 using Microsoft.Xna.Framework;
+using System;
 
 namespace MG.Shared.VoidControl.UI.Panels
 {
@@ -8,24 +11,33 @@ namespace MG.Shared.VoidControl.UI.Panels
   {
     private readonly Button btnSpawn;
     private readonly Button btnClear;
-    private readonly Label lblShipCount;
+    private readonly Label lblVisable;
+    private readonly Label lblEnabled;
+    private readonly Label lblTotal;
     readonly TuningPID PIDPanel;
+    public Ships Ships;
     public Debuging(int x, int y, int width, int height, Color back = default) : base(x, y, width, height, back)
     {
       btnSpawn = new(0, 0, 3, 1, "Spawn", Colors.Back, Colors.Fore);
       btnClear = new(3, 0, 3, 1, "Clear", Colors.Back, Colors.Fore);
-      lblShipCount = new(6, 0, 2, 1, "0", Colors.Back, Colors.Fore);
-      PIDPanel = new(0, 1, 8, 3, Colors.Back);
+      lblVisable = new(0, 1, 2, 1, "Visable:000", Colors.Back, Colors.Fore);
+      lblEnabled = new(3, 1, 2, 1, "Enabled:000", Colors.Back, Colors.Fore);
+      lblTotal = new(6, 1, 2, 1, "Total:000", Colors.Back, Colors.Fore);
+      PIDPanel = new(0, 2, 8, 3, Colors.Back);
       Children.Add(btnSpawn);
       Children.Add(btnClear);
-      Children.Add(lblShipCount);
+      Children.Add(lblVisable);
+      Children.Add(lblEnabled);
+      Children.Add(lblTotal);
       Children.Add(PIDPanel);
-      //btnSpawn.Clicked += new EventHandler(delegate (object o, EventArgs a) { EntityManager.Spawn(); PID.Visable = PIDPanel.Visible = true; });
-      //btnClear.Clicked += new EventHandler(delegate (object o, EventArgs a) { EntityManager.Clear(); });
+      btnSpawn.Clicked += new EventHandler(delegate (object o, EventArgs a) { Ships.SpawnClick(); PID.Visable = PIDPanel.Visable = true; });
+      btnClear.Clicked += new EventHandler(delegate (object o, EventArgs a) { Ships.ClearClick(); PID.Visable = PIDPanel.Visable = false; });
     }
     public override void Update(GameTime gameTime)
     {
-      //lblShipCount.Msg.Text = EntityManager.ShipCount().ToString("Ships:000");
+      lblVisable.Text = Ships.Visable.ToString("Visable:000");
+      lblEnabled.Text = Ships.Enabled.ToString("Enabled:000");
+      lblTotal.Text = Ships.Total.ToString("Total:000");
       //PIDPanel.Update(gameTime);
       base.Update(gameTime);
     }

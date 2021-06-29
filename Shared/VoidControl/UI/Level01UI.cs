@@ -20,6 +20,7 @@ namespace MG.Shared.VoidControl.UI
         if (!(miniMap is null))
         {
           miniMap.Ships = value;
+          debuging.Ships = value;
           miniMap.Player = value.Player;
         }
         if (!(shipStatus is null))

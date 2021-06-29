@@ -12,7 +12,7 @@ namespace MG.Shared.VoidControl.Ship.SubSystems
     public Vector2 Thrust, ThrustDesired;                           // Change in speed in units of pixels per second 
     public float MaxThrust, MaxThrustSquared;                       // Max change in speed in units of pixels per second 
     public float MaxThrustPerScan, MaxThrustPerScanSquared;         // Max change in speed in units of pixels per second 
-    public float MaxVelocity, MaxVelocitySquared;                                       // Max speed in units of pixels per second 
+    public float MaxVelocity, MaxVelocitySquared;                   // Max speed in units of pixels per second 
     public override float Quality
     {
       get => base.Quality; set
@@ -20,13 +20,13 @@ namespace MG.Shared.VoidControl.Ship.SubSystems
         base.Quality = value;
         levelColorA = Sprite.Spectrum((base.Quality * 0.9f) + 0.0f);
         levelColorB = Sprite.Spectrum((base.Quality * 0.9f) + 0.1f);
-        MaxVelocity = 3000f;
+        CostFactor = 1 / 3000f;
+        MaxVelocity = ((base.Quality * 0.5f) + 0.5f) * 3000f;
         MaxVelocitySquared = MaxVelocity * MaxVelocity;
-        MaxThrust = ((base.Quality * 0.9f) + 0.1f) * MaxVelocity;
+        MaxThrust = ((base.Quality * 0.9f) + 0.1f) * 3000f;
         MaxThrustPerScan = MaxThrust * GameHelper.ScanTime;
         MaxThrustSquared = MaxThrust * MaxThrust;
         MaxThrustPerScanSquared = MaxThrustSquared * GameHelper.ScanTime;
-        CostFactor = 1 / MaxVelocity;
       }
     }
     public Thruster(float scale, float quality) : base(scale, quality)

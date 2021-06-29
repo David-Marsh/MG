@@ -14,7 +14,7 @@ namespace MG.Shared.VoidControl.Ship.SubSystems
       get => base.Quality; set
       {
         base.Quality = value;
-        rangeMax = 30000f;
+        rangeMax = 100000f;
         Range = ((base.Quality * 0.9f) + 0.1f) * rangeMax;
         RangeSquared = Range * Range;
       }

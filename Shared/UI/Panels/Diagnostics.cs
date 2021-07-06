@@ -16,11 +16,11 @@ namespace MG.Shared.UI.Panels
     private static double tsUpdate;
     private static double tsDraw;
 
-    public Diagnostics(int x, int y, int width, int height, Color back = default) : base(x, y, width, height, back)
+    public Diagnostics(int x, int y, int width, int height) : base(x, y, width, height)
     {
-      lblDraw = new(0, 0, 4, 1, "Draw 0.00mS", Colors.Back, Colors.Fore);
-      lblUpdates = new(0, 1, 4, 1, "Update 0.00mS", Colors.Back, Colors.Fore);
-      lblScan = new(0, 2, 4, 1, (GameHelper.ScanTime * 1000).ToString("Scan 0.00mS"), Colors.Back, Colors.Fore);
+      lblDraw = new(0, 0, 4, 1, "Draw 0.00mS", Colors);
+      lblUpdates = new(0, 1, 4, 1, "Update 0.00mS", Colors);
+      lblScan = new(0, 2, 4, 1, (GameHelper.ScanTime * 1000).ToString("Scan 0.00mS"), Colors);
       Children.Add(lblDraw);
       Children.Add(lblUpdates);
       Children.Add(lblScan);

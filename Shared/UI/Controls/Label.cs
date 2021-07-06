@@ -12,9 +12,9 @@ namespace MG.Shared.UI.Controls
     private Vector2 textPosition;
     private Vector2 textZoom;
 
-    public Label(int x, int y, int width, int height, string text, Color? back = null, Color? fore = null) : base(x, y, width, height, back ?? Color.Transparent)
+    public Label(int x, int y, int width, int height, string text, Color fore) : this(x, y, width, height, text, new ColorScheme(fore, Color.Transparent)) { }
+    public Label(int x, int y, int width, int height, string text, ColorScheme colors) : base(x, y, width, height, colors)
     {
-      Colors = new(fore ?? Color.White, back ?? Color.Transparent);
       this.text = text;
     }
 

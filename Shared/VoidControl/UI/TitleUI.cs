@@ -1,4 +1,5 @@
-﻿using MG.Shared.UI.Controls;
+﻿using MG.Shared.UI;
+using MG.Shared.UI.Controls;
 using MG.Shared.UI.Panels;
 using Microsoft.Xna.Framework;
 using System;
@@ -15,9 +16,9 @@ namespace MG.Shared.VoidControl.UI
     }
     protected override void LoadContent()
     {
-      titlePanel = new(0, 0, 64, 36, Color.Transparent);
-      btnStartTop = new(0, 0, 64, 18, "Void", Color.Transparent, Color.Black) { CanHover = false, Margin = Point.Zero };
-      btnStartBot = new(0, 18, 64, 18, "Control", Color.Transparent, Color.Black) { CanHover = false, Margin = Point.Zero };
+      titlePanel = new(0, 0, 64, 36);
+      btnStartTop = new(0, 0, 64, 18, "Void", Color.Black) { CanHover = false, Margin = Point.Zero };
+      btnStartBot = new(0, 18, 64, 18, "Control", Color.Black) { CanHover = false, Margin = Point.Zero };
       titlePanel.Children.Add(btnStartTop);
       titlePanel.Children.Add(btnStartBot);
       Children.Add(titlePanel);

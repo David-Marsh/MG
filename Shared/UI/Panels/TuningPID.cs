@@ -19,28 +19,28 @@ namespace MG.Shared.UI.Panels
     private readonly Button btnKdDec;
     private readonly Label lblKd;
     private readonly Label lblD;
-    public TuningPID(int x, int y, int width, int height, Color back = default) : base(x, y, width, height, back)
+    public TuningPID(int x, int y, int width, int height) : base(x, y, width, height)
     {
-      lblKp = new(0, 0, 4, 1, "Kp:0.0000000", Colors.Back, Colors.Fore);
-      btnKpDec = new(4, 0, 1, 1, ((char)0xF8AB).ToString(), Colors.Back, Color.White) { Menu = true, Delay = 150 };
-      btnKpInc = new(5, 0, 1, 1, ((char)0xF8AA).ToString(), Colors.Back, Color.White) { Menu = true, Delay = 150 };
-      lblP = new(6, 0, 2, 1, "P:+0.00", Colors.Back, Colors.Fore);
+      lblKp = new(0, 0, 4, 1, "Kp:0.0000000", Colors);
+      btnKpDec = new(4, 0, 1, 1, ((char)0xF8AB).ToString());
+      btnKpInc = new(5, 0, 1, 1, ((char)0xF8AA).ToString());
+      lblP = new(6, 0, 2, 1, "P:+0.00", Colors);
       Children.Add(lblKp);
       Children.Add(lblP);
       Children.Add(btnKpInc);
       Children.Add(btnKpDec);
-      lblKi = new(0, 1, 4, 1, "Ki:0.0000000", Colors.Back, Colors.Fore);
-      btnKiDec = new(4, 1, 1, 1, ((char)0xF8AB).ToString(), Colors.Back, Color.White) { Menu = true, Delay = 150 };
-      btnKiInc = new(5, 1, 1, 1, ((char)0xF8AA).ToString(), Colors.Back, Color.White) { Menu = true, Delay = 150 };
-      lblI = new(6, 1, 2, 1, "I:+0.00", Colors.Back, Colors.Fore);
+      lblKi = new(0, 1, 4, 1, "Ki:0.0000000", Colors);
+      btnKiDec = new(4, 1, 1, 1, ((char)0xF8AB).ToString());
+      btnKiInc = new(5, 1, 1, 1, ((char)0xF8AA).ToString());
+      lblI = new(6, 1, 2, 1, "I:+0.00", Colors);
       Children.Add(lblKi);
       Children.Add(lblI);
       Children.Add(btnKiInc);
       Children.Add(btnKiDec);
-      lblKd = new(0, 2, 4, 1, "Kd:0.0000000", Colors.Back, Colors.Fore);
-      btnKdDec = new(4, 2, 1, 1, ((char)0xF8AB).ToString(), Colors.Back, Color.White) { Menu = true, Delay = 150 };
-      btnKdInc = new(5, 2, 1, 1, ((char)0xF8AA).ToString(), Colors.Back, Color.White) { Menu = true, Delay = 150 };
-      lblD = new(6, 2, 2, 1, "D:+0.00", Colors.Back, Colors.Fore);
+      lblKd = new(0, 2, 4, 1, "Kd:0.0000000", Colors);
+      btnKdDec = new(4, 2, 1, 1, ((char)0xF8AB).ToString());
+      btnKdInc = new(5, 2, 1, 1, ((char)0xF8AA).ToString());
+      lblD = new(6, 2, 2, 1, "D:+0.00", Colors);
       Children.Add(lblKd);
       Children.Add(lblD);
       Children.Add(btnKdInc);

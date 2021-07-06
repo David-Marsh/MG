@@ -18,11 +18,12 @@ namespace MG.Shared.UI.Controls
         color = colors.Back;
       }
     }
-    public Panel(int x, int y, int width, int height, Color back = new Color())
+    public Panel(int x, int y, int width, int height) : this(x, y, width, height, new ColorScheme(Color.Gray, Color.Transparent)) { }
+    public Panel(int x, int y, int width, int height, ColorScheme colors)
     {
       texture = Pixel;
       placement = new Microsoft.Xna.Framework.Rectangle(x, y, width, height);
-      Colors = new(back);
+      Colors = colors;
       Margin = new(4, 4);
       Grid = new(width, height);
     }

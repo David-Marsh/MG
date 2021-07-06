@@ -1,4 +1,5 @@
-﻿using MG.Shared.UI.Controls;
+﻿using MG.Shared.UI;
+using MG.Shared.UI.Controls;
 using MG.Shared.VoidControl.Ship;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -29,12 +30,12 @@ namespace MG.Shared.VoidControl.UI.Panels
         labelZoom.Text = Zoom.ToString("Zoom:0");
       }
     }
-    public MiniMap(int x, int y, int width, int height, Color back = default) : base(x, y, width, height, back)
+    public MiniMap(int x, int y, int width, int height) : base(x, y, width, height)
     {
-      mapArea = new(0, 0, 8, 8, Color.Lime);
-      labelZoom = new(2, 8, 4, 1, "Zoom:50", back, Color.Gray);
-      btnZoomOut = new(6, 8, 1, 1, ((char)0xF8AB).ToString(), back, Color.White, true) { Delay = 150 };
-      btnZoomIn = new(7, 8, 1, 1, ((char)0xF8AA).ToString(), back, Color.White, true) { Delay = 150 };
+      mapArea = new(0, 0, 8, 8, new ColorScheme(Color.Gray, Color.Lime));
+      labelZoom = new(2, 8, 4, 1, "Zoom:50", Color.Gray);
+      btnZoomOut = new(6, 8, 1, 1, ((char)0xF8AB).ToString());
+      btnZoomIn = new(7, 8, 1, 1, ((char)0xF8AA).ToString());
 
       Children.Add(mapArea);
       Children.Add(labelZoom);

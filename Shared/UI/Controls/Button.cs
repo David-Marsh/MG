@@ -25,7 +25,13 @@ namespace MG.Shared.UI.Controls
     public event EventHandler MouseUp;
     public event EventHandler MouseLeave;
     public event EventHandler MouseEnter;
-    public Button(int x, int y, int width, int height, string text, Color? back = null, Color? fore = null, bool menu = false) : base(x, y, width, height, text, back, fore)
+    public Button(int x, int y, int width, int height, string text, bool menu = true) : this(x, y, width, height, text, new ColorScheme(Color.White, Color.Transparent), menu) 
+    { 
+      Delay = 150; 
+      MarginRatio = 5; 
+    }
+    public Button(int x, int y, int width, int height, string text, Color fore, bool menu = false) : this(x, y, width, height, text, new ColorScheme(fore, Color.Transparent), menu) { }
+    public Button(int x, int y, int width, int height, string text, ColorScheme colors, bool menu = false) : base(x, y, width, height, text, colors)
     {
       CanHover = true;
       Menu = menu;

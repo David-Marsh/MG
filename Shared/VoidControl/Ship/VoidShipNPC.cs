@@ -37,7 +37,7 @@ namespace MG.Shared.VoidControl.Ship
       targetRelativeVelocity = target.Velocity - velocity;
       float inaccuracy = MathHelper.Clamp(target.ECM.Quality - Sensor.Quality, 0, 1f);
       targetRelativeVelocity.X += inaccuracy * ((gameTime.TotalGameTime.Ticks & 1023) - 512);
-      targetRelativeVelocity.Y += inaccuracy * ((gameTime.TotalGameTime.Ticks & 1023) - 512);
+      targetRelativeVelocity.Y += inaccuracy * (((gameTime.TotalGameTime.Ticks >> 10) & 1023) - 512);
       approch = targetRelativePosition;
       approch -= Vector2.Normalize(approch) * Weapons.Range * 0.9f;
       avoid = position - average;

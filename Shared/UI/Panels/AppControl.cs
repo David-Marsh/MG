@@ -39,16 +39,16 @@ namespace MG.Shared.UI.Panels
     }
     protected override void LoadContent()
     {
-      appControl = new Panel(56, 0, 8, 1, Color.Transparent);
-      btnPause = new(0, 0, 1, 1, ((char)0xEDB4).ToString(), Color.Transparent, Color.Blue, true);
+      appControl = new Panel(56, 0, 8, 1);
+      btnPause = new(0, 0, 1, 1, ((char)0xEDB4).ToString(), Color.Blue, true);
       PauseGame = pauseGame;
-      btnMute = new(1, 0, 1, 1, ((char)0xE995).ToString(), Color.Transparent, Color.Cyan, true);
-      btnMenu = new(2, 0, 1, 1, ((char)0xE700).ToString(), Color.Transparent, Color.Lime, true);
-      btnMinimize = new(3, 0, 1, 1, ((char)0xE921).ToString(), Color.Transparent, Color.Yellow, true);
-      btnNormalize = new(4, 0, 1, 1, ((char)0xE923).ToString(), Color.Transparent, Color.Yellow, true);
-      btnMaximize = new(5, 0, 1, 1, ((char)0xE922).ToString(), Color.Transparent, Color.Yellow, true);
-      btnFullScreen = new(6, 0, 1, 1, ((char)0xE92D).ToString(), Color.Transparent, Color.Yellow, true);
-      btnExit = new(7, 0, 1, 1, ((char)0xE8BB).ToString(), Color.Transparent, Color.Red, true);
+      btnMute = new(1, 0, 1, 1, ((char)0xE995).ToString(), Color.Cyan, true);
+      btnMenu = new(2, 0, 1, 1, ((char)0xE700).ToString(), Color.Lime, true);
+      btnMinimize = new(3, 0, 1, 1, ((char)0xE921).ToString(), Color.Yellow, true);
+      btnNormalize = new(4, 0, 1, 1, ((char)0xE923).ToString(), Color.Yellow, true);
+      btnMaximize = new(5, 0, 1, 1, ((char)0xE922).ToString(), Color.Yellow, true);
+      btnFullScreen = new(6, 0, 1, 1, ((char)0xE92D).ToString(), Color.Yellow, true);
+      btnExit = new(7, 0, 1, 1, ((char)0xE8BB).ToString(), Color.Red, true);
       appControl.Children.Add(btnPause);
       appControl.Children.Add(btnMute);
       appControl.Children.Add(btnMenu);

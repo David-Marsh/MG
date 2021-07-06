@@ -20,8 +20,8 @@ namespace MG.Shared.Global
       SoundLevel = 0.02f;
       dripSound = content.Load<SoundEffect>("Audio/Drip");
       fuzzSound = content.Load<SoundEffect>("Audio/Fuzz");
-      ThrustSound = content.Load<SoundEffect>("Audio/Thrust");
       impulse44 = content.Load<SoundEffect>("Audio/Impulse44");
+      ThrustSound = content.Load<SoundEffect>("Audio/Thrust");
       ThrustSoundInstance = ThrustSound.CreateInstance();
       ThrustSoundInstance.Volume = SoundLevel;
       ThrustSoundInstance.IsLooped = true;
@@ -52,17 +52,8 @@ namespace MG.Shared.Global
       }
     }
     public static float Volume { get; set; }
-    public static void Drip()
-    {
-      if (!Mute) dripSound.Play(SoundLevel, 0, 0);
-    }
-    public static void Fuzz(float pitch = 1.0f)
-    {
-      if (!Mute) fuzzSound.Play(SoundLevel * 0.5f, pitch, 0);
-    }
-    public static void Impulse44(float pitch = 1.0f)
-    {
-      if (!Mute) impulse44.Play(SoundLevel * 10f, pitch, 0);
-    }
+    public static void Drip() { if (!Mute) dripSound.Play(SoundLevel, 0, 0); }
+    public static void Fuzz(float pitch = 1.0f) { if (!Mute) fuzzSound.Play(SoundLevel * 0.5f, pitch, 0); }
+    public static void Impulse44(float pitch = 1.0f) { if (!Mute) impulse44.Play(SoundLevel * 10f, pitch, 0); }
   }
 }

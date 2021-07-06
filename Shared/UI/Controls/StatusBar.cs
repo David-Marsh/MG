@@ -47,10 +47,9 @@ namespace MG.Shared.UI.Controls
     public event EventHandler MouseLeave;
     public event EventHandler MouseEnter;
     public event EventHandler<PushStatusEventArgs> PushStatus;
-    public StatusBar(int x, int y, int width, int height, string text, Color? back = null, Color? fore = null) : base(x, y, width, height, back ?? Color.Transparent)
+    public StatusBar(int x, int y, int width, int height, string text, ColorScheme colors) : base(x, y, width, height, colors)
     {
       CanHover = true;
-      Colors = new(fore ?? Color.White, back ?? Color.Transparent);
       this.text = text;
     }
     public override void Draw(SpriteBatch spriteBatch)

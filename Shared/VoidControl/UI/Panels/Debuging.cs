@@ -1,4 +1,5 @@
 ﻿using MG.Shared.Global;
+using MG.Shared.UI;
 using MG.Shared.UI.Controls;
 using MG.Shared.UI.Panels;
 using MG.Shared.VoidControl.Ship;
@@ -16,14 +17,14 @@ namespace MG.Shared.VoidControl.UI.Panels
     private readonly Label lblTotal;
     readonly TuningPID PIDPanel;
     public Ships Ships;
-    public Debuging(int x, int y, int width, int height, Color back = default) : base(x, y, width, height, back)
+    public Debuging(int x, int y, int width, int height) : base(x, y, width, height)
     {
-      btnSpawn = new(0, 0, 3, 1, "Spawn", Colors.Back, Colors.Fore);
-      btnClear = new(3, 0, 3, 1, "Clear", Colors.Back, Colors.Fore);
-      lblVisable = new(0, 1, 2, 1, "Visable:000", Colors.Back, Colors.Fore);
-      lblEnabled = new(3, 1, 2, 1, "Enabled:000", Colors.Back, Colors.Fore);
-      lblTotal = new(6, 1, 2, 1, "Total:000", Colors.Back, Colors.Fore);
-      PIDPanel = new(0, 2, 8, 3, Colors.Back);
+      btnSpawn = new(0, 0, 3, 1, "Spawn", Colors);
+      btnClear = new(3, 0, 3, 1, "Clear", Colors);
+      lblVisable = new(0, 1, 2, 1, "Visable:000", Colors);
+      lblEnabled = new(3, 1, 2, 1, "Enabled:000", Colors);
+      lblTotal = new(6, 1, 2, 1, "Total:000", Colors);
+      PIDPanel = new(0, 2, 8, 3);
       Children.Add(btnSpawn);
       Children.Add(btnClear);
       Children.Add(lblVisable);

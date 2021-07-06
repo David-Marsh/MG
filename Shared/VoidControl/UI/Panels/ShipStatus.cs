@@ -1,4 +1,5 @@
-﻿using MG.Shared.UI.Controls;
+﻿using MG.Shared.UI;
+using MG.Shared.UI.Controls;
 using MG.Shared.VoidControl.Ship;
 using Microsoft.Xna.Framework;
 using System;
@@ -16,16 +17,16 @@ namespace MG.Shared.VoidControl.UI.Panels
     private readonly Button buttonAutoGun;
     private readonly Button buttonAutoAim;
     public VoidShipPC Player;
-    public ShipStatus(int x, int y, int width, int height, Color back = default) : base(x, y, width, height, back)
+    public ShipStatus(int x, int y, int width, int height) : base(x, y, width, height)
     {
-      statusReactor = new(0, 0, 4, 2, "Reactor", Colors.Back, Colors.Fore);
-      statusShield = new(4, 0, 4, 2, "Shield", Colors.Back, Colors.Fore);
-      statusThruster = new(0, 2, 4, 2, "Thruster", Colors.Back, Colors.Fore);
-      statusWeapons = new(4, 2, 4, 2, "Weapons", Colors.Back, Colors.Fore);
-      statusSensors = new(0, 4, 4, 2, "Sensors", Colors.Back, Colors.Fore);
-      statusECM = new(4, 4, 4, 2, "ECM", Colors.Back, Colors.Fore);
-      buttonAutoGun = new(0, 6, 2, 1, "AutoGun", Colors.Back, Colors.Fore);
-      buttonAutoAim = new(2, 6, 2, 1, "AutoAim", Colors.Back, Colors.Fore);
+      statusReactor = new(0, 0, 4, 2, "Reactor", Colors);
+      statusShield = new(4, 0, 4, 2, "Shield", Colors);
+      statusThruster = new(0, 2, 4, 2, "Thruster", Colors);
+      statusWeapons = new(4, 2, 4, 2, "Weapons", Colors);
+      statusSensors = new(0, 4, 4, 2, "Sensors", Colors);
+      statusECM = new(4, 4, 4, 2, "ECM", Colors);
+      buttonAutoGun = new(0, 6, 2, 1, "AutoGun", Colors);
+      buttonAutoAim = new(2, 6, 2, 1, "AutoAim", Colors);
 
       Children.Add(statusReactor);
       Children.Add(statusThruster);

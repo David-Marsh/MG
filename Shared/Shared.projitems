@@ -57,9 +57,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\Starfield.cs" />
     <Compile Include="..\Shared\Backgrounds\Starfield_Old.cs" />
     <Compile Include="..\Shared\Global\Entities\BasicEntity.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Test\UI\Scenes.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Test\UI\TestUI.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Test\UI\TitleUI.cs" />
     <Compile Include="..\Shared\UI\Panels\AppControl.cs" />
     <Compile Include="..\Shared\VoidControl\Binder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)VoidControl\Scenes\TitleScene.cs" />
@@ -70,7 +67,6 @@
     <Compile Include="..\Shared\Global\Entities\BasicEntityParent.cs" />
     <Compile Include="..\Shared\Global\GameHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Global\Input.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Global\Message.cs" />
     <Compile Include="..\Shared\Global\Particles.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Global\PID.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Global\Sound.cs" />

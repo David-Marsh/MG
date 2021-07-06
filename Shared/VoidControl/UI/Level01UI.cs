@@ -1,4 +1,5 @@
-﻿using MG.Shared.UI.Panels;
+﻿using MG.Shared.UI;
+using MG.Shared.UI.Panels;
 using MG.Shared.VoidControl.Ship;
 using MG.Shared.VoidControl.UI.Panels;
 using Microsoft.Xna.Framework;
@@ -43,10 +44,10 @@ namespace MG.Shared.VoidControl.UI
     }
     protected override void LoadContent()
     {
-      miniMap = new(56, 1, 8, 9, Color.Transparent);
-      shipStatus = new(56, 10, 8, 7, Color.Transparent);
-      debuging = new(56, 18, 8, 4, Color.Transparent);
-      uIDiagnostics = new(60, 51, 4, 3, Color.Transparent);
+      miniMap = new(56, 1, 8, 9);
+      shipStatus = new(56, 10, 8, 7);
+      debuging = new(56, 18, 8, 4);
+      uIDiagnostics = new(60, 51, 4, 3);
       miniMap.SizeTo(64, 36, GraphicsDevice);
       shipStatus.SizeTo(64, 36, GraphicsDevice);
       debuging.SizeTo(64, 36, GraphicsDevice);

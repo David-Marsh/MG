@@ -13,6 +13,7 @@ namespace MG.Shared.VoidControl.Ship
     private VoidShip swap;
     private Point cellUID;
     private int cellBits, cellMask, cellSize, maxDistance;
+    public bool ClearBtn, SpawnBtn;
     public float maxDistanceSquared;
     public int CellBits
     {
@@ -85,18 +86,23 @@ namespace MG.Shared.VoidControl.Ship
       }
     }
     #region Add Remove Spawn
+    public void ClearClick(Particles particles)
+    {
+      for (int i = 1; i < total; i++)
+      {
+        array[i].UID = Point.Zero;
+        if(array[i].Weapons.InRange) particles.Add(array[i].Position);
+      }
+      Enabled = Visable = total = 1;
+      ClearBtn = false;
+    }
     public void SpawnClick()
     {
       array[0].Dead = false;
       array[0].Visible = array[0].Enabled = true;
       array[0].Shield.Power = 1;
       Spawn();
-    }
-    public void ClearClick()
-    {
-      for (int i = 1; i < total; i++)
-        array[i].UID = Point.Zero;
-      Enabled = Visable = total = 1;
+      SpawnBtn = false;
     }
     private void Spawn()
     {
@@ -237,6 +243,8 @@ namespace MG.Shared.VoidControl.Ship
     }
     public void Update(GameTime gameTime, Bullets bullets, Particles particles)
     {
+      if (ClearBtn) ClearClick(particles);
+      if (SpawnBtn) SpawnClick();
       Vector2 average = Average();
       array[0].Update(gameTime, bullets, Nearest(), average, maxDistanceSquared);
       for (int i = 1; i < total; i++) array[i].Update(gameTime, bullets, array[0], average, maxDistanceSquared);

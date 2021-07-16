@@ -29,7 +29,8 @@ namespace MG.Shared.UI.Controls
     public override void SizeTo(BasicEntityParent parent)
     {
       base.SizeTo(parent);
-      Margin.X = Margin.Y = MathHelper.Min(destinationRectangle.Width, destinationRectangle.Height) / MarginRatio;
+      if(MarginRatio != 0)
+        Margin.X = Margin.Y = MathHelper.Min(destinationRectangle.Width, destinationRectangle.Height) / MarginRatio;
       destinationRectangle.Inflate(-Margin.X, -Margin.Y);
     }
   }

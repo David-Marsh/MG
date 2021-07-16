@@ -20,10 +20,10 @@ namespace MG.Shared.VoidControl.Ship
     public Thruster Thruster;
     public Weapons Weapons;
 
-    #region AI
-    protected float targetRelativePositionSquared, targetRelativeVelocitySquared;
-    protected Vector2 targetRelativePosition, targetRelativeVelocity;
-    #endregion
+    //#region AI
+    //protected float targetRelativePositionSquared, targetRelativeVelocitySquared;
+    //protected Vector2 targetRelativePosition, targetRelativeVelocity;
+    //#endregion
 
     public Vector2 Velocity { get => velocity; set => velocity = value; }
     public float Scale { get => scale.X; }
@@ -56,12 +56,12 @@ namespace MG.Shared.VoidControl.Ship
     public virtual void Update(GameTime gameTime, Bullets bullets, VoidShip voidShip, Vector2 average, float maxDistanceSquared) => throw new NotImplementedException();
     public virtual void Update(GameTime gameTime, Bullets bullets)
     {
-      Reactor.Update(gameTime);
+      Reactor.Update();
       Shield.Update(Reactor);
-      Thruster.Update(gameTime, this);
-      Weapons.Update(gameTime, this, bullets);
+      Thruster.Update(this);
+      Weapons.Update(this, bullets);
       ECM.Update();
-      Sensor.Update(gameTime);
+      Sensor.Update();
       SetRotation(Thruster.Thrust);
     }
 

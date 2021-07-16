@@ -46,7 +46,7 @@ namespace MG.Shared.Backgrounds
     public static void OnResize(GraphicsDevice graphicsDevice) => background.OnResize(graphicsDevice);
     public static void Update(Vector2 screencenter)
     {
-      if (Input.OneShotKey(Keys.B))
+      if (Input.KeyOneShot(Keys.B))
       {
         Setting = setting == Setting.Starfield ? Setting.Grid : Setting.Starfield;
       }

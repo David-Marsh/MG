@@ -12,10 +12,12 @@ namespace MG.Shared.VoidControl.Scenes
   {
     private SpriteBatch spriteBatch;
     private Color Color;
-    private Matrix OriginMatrix, ViewMatrix;
+    private Matrix ScaleOriginMatrix, ViewMatrix;
     private Vector2 Position;
     private readonly Particles particleManager;
-    private Vector2 start, end;
+    private Vector2 start, end, origin;
+    private float scale;
+
     public TitleScene(Game game) : base(game)
     {
       particleManager = new();
@@ -47,7 +49,9 @@ namespace MG.Shared.VoidControl.Scenes
     public override void OnResize(object sender, EventArgs e)
     {
       base.OnResize(sender, e);
-      OriginMatrix = Matrix.CreateTranslation(new Vector3(new Point(((GraphicsDevice)sender).Viewport.Width / 2, ((GraphicsDevice)sender).Viewport.Height / 2).ToVector2(), 0.0f));
+      origin = new(((GraphicsDevice)sender).Viewport.Width / 2f, ((GraphicsDevice)sender).Viewport.Height / 2f);
+      scale = ((GraphicsDevice)sender).Viewport.Height / 2160f;
+      ScaleOriginMatrix = Matrix.CreateScale(scale) * Matrix.CreateTranslation(new Vector3(origin, 0.0f));
     }
     public override void Update(GameTime gameTime)
     {
@@ -57,7 +61,7 @@ namespace MG.Shared.VoidControl.Scenes
       end.X = IntToFloatHash(gameTime.TotalGameTime.Seconds + 1) * speed;
       end.Y = IntToFloatHash(gameTime.TotalGameTime.Seconds + 11) * speed;
       Position += Vector2.Lerp(start, end, gameTime.TotalGameTime.Milliseconds * 0.001f);
-      ViewMatrix = Matrix.CreateTranslation(new Vector3(-Position, 0.0f)) * OriginMatrix;
+      ViewMatrix = ScaleOriginMatrix * Matrix.CreateTranslation(new Vector3(-Position, 0.0f));
       particleManager.Update();
       Update(Position.ToPoint());
       base.Update(gameTime);

@@ -23,27 +23,26 @@ namespace MG.Shared.VoidControl.Ship
     private static float HashToPercent(uint hash, int shift) => ((hash >> shift) & 0xFF) / (float)0xFF;
     public override void Update(GameTime gameTime, Bullets bullets, VoidShip target, Vector2 average, float maxDistanceSquared)
     {
-      targetRelativePosition = target.Position - Position;
-      targetRelativePositionSquared = targetRelativePosition.LengthSquared();
-      OutOfZone = targetRelativePositionSquared > maxDistanceSquared;
+      Weapons.targetRelativePosition = target.Position - Position;
+      Weapons.targetRelativePositionSquared = Weapons.targetRelativePosition.LengthSquared();
+      OutOfZone = Weapons.targetRelativePositionSquared > maxDistanceSquared;
       if (OutOfZone | Dead)
       {
         enabled = visible = false;
         return;
       }
-      enabled = Sensor.RangeSquared > targetRelativePositionSquared;
-      visible = target.Sensor.RangeSquared > targetRelativePositionSquared;
+      enabled = Sensor.RangeSquared > Weapons.targetRelativePositionSquared;
+      visible = target.Sensor.RangeSquared > Weapons.targetRelativePositionSquared;
       if (!enabled) return;
-      targetRelativeVelocity = target.Velocity - velocity;
+      Weapons.targetRelativeVelocity = target.Velocity - velocity;
       float inaccuracy = MathHelper.Clamp(target.ECM.Quality - Sensor.Quality, 0, 1f);
-      targetRelativeVelocity.X += inaccuracy * ((gameTime.TotalGameTime.Ticks & 1023) - 512);
-      targetRelativeVelocity.Y += inaccuracy * (((gameTime.TotalGameTime.Ticks >> 10) & 1023) - 512);
-      approch = targetRelativePosition;
-      approch -= Vector2.Normalize(approch) * Weapons.Range * 0.9f;
+      Weapons.targetRelativeVelocity.X += inaccuracy * ((gameTime.TotalGameTime.Ticks & 1023) - 512);
+      Weapons.targetRelativeVelocity.Y += inaccuracy * (((gameTime.TotalGameTime.Ticks >> 10) & 1023) - 512);
+      approch = Weapons.targetRelativePosition;
+      approch -= Vector2.Normalize(approch) * Weapons.Range * 0.5f;
       avoid = position - average;
       avoid = 10000 * Vector2.One / avoid;
       Thruster.ControlNPC(velocity, PID.Target(approch + avoid));
-      Weapons.ControlNPC(targetRelativePosition, targetRelativeVelocity);
       base.Update(gameTime, bullets);
     }
     public override void Draw(SpriteBatch spriteBatch)

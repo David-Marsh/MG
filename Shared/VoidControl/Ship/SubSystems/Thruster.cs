@@ -8,6 +8,7 @@ namespace MG.Shared.VoidControl.Ship.SubSystems
   {
     private const int flickermask = 48;                             // 31.25 Hz 1/4 wave = 25% duty cycle
     private Color levelColorA, levelColorB;                         // Colors to alternate between for thrust
+    private int milliseconds;
     public float Cost, CostFactor;
     public Vector2 Thrust, ThrustDesired;                           // Change in speed in units of pixels per second 
     public float MaxThrust, MaxThrustSquared;                       // Max change in speed in units of pixels per second 
@@ -33,7 +34,7 @@ namespace MG.Shared.VoidControl.Ship.SubSystems
     {
       Texture = Content.Load<Texture2D>("Art/VoidShip/Thruster");
     }
-    public void Update(GameTime gameTime, VoidShip voidShip)
+    public void Update(VoidShip voidShip)
     {
       float cost = ThrustDesired.Length() * CostFactor;
       if (cost > voidShip.Shield.Power)
@@ -45,7 +46,9 @@ namespace MG.Shared.VoidControl.Ship.SubSystems
         voidShip.Shield.Power -= cost;
         Thrust = ThrustDesired;
       }
-      Color = Thrust == Vector2.Zero ? Color.Transparent : (gameTime.TotalGameTime.Milliseconds & flickermask) != flickermask ? levelColorA : levelColorB;
+      milliseconds += 16;
+      milliseconds &= 255;
+      Color = Thrust == Vector2.Zero ? Color.Transparent : (milliseconds & flickermask) == 0 ? levelColorA : levelColorB;
       voidShip.Velocity += Thrust;
       voidShip.Position += voidShip.Velocity * GameHelper.ScanTime;
     }

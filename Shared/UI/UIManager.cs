@@ -39,8 +39,8 @@ namespace MG.Shared.UI
       HoverControl = FindControlAt(Input.Position);
       if (Input.MouseOnUI)
       {
-        if (Input.OneShotMouseLeft(ButtonState.Pressed)) HoverControl?.OnMouseDown();
-        if (Input.OneShotMouseLeft(ButtonState.Released)) HoverControl?.OnMouseUp();
+        if (Input.MouseLeftOneShot(ButtonState.Pressed)) HoverControl?.OnMouseDown();
+        if (Input.MouseLeftOneShot(ButtonState.Released)) HoverControl?.OnMouseUp();
       }
       foreach (var control in Children) control.Update(gameTime);
     }

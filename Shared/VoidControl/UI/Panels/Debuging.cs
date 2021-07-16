@@ -31,8 +31,8 @@ namespace MG.Shared.VoidControl.UI.Panels
       Children.Add(lblEnabled);
       Children.Add(lblTotal);
       Children.Add(PIDPanel);
-      btnSpawn.Clicked += new EventHandler(delegate (object o, EventArgs a) { Ships.SpawnClick(); PID.Visable = PIDPanel.Visable = true; });
-      btnClear.Clicked += new EventHandler(delegate (object o, EventArgs a) { Ships.ClearClick(); PID.Visable = PIDPanel.Visable = false; });
+      btnSpawn.Clicked += new EventHandler(delegate (object o, EventArgs a) { Ships.SpawnBtn = PID.Visable = PIDPanel.Visable = true; });
+      btnClear.Clicked += new EventHandler(delegate (object o, EventArgs a) { Ships.ClearBtn = true; PID.Visable = PIDPanel.Visable = false; });
     }
     public override void Update(GameTime gameTime)
     {

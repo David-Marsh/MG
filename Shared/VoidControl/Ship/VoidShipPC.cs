@@ -8,31 +8,34 @@ namespace MG.Shared.VoidControl.Ship
   public class VoidShipPC : VoidShip
   {
     private Matrix originMatrix;
+    private Matrix ScaleOriginMatrix;
     public Matrix PositionMatrix;
     public Matrix ViewMatrix;
     public void OnResize(object sender, EventArgs e = null)
     {
-      Weapons.WindowOrigin = new(((GraphicsDevice)sender).Viewport.Width / 2, ((GraphicsDevice)sender).Viewport.Height / 2);
-      originMatrix = Matrix.CreateTranslation(new Vector3(Weapons.WindowOrigin.ToVector2(), 0.0f));
+      Input.WindowOrigin = new(((GraphicsDevice)sender).Viewport.Width / 2, ((GraphicsDevice)sender).Viewport.Height / 2);
+      originMatrix = Matrix.CreateTranslation(new Vector3(Input.WindowOrigin.ToVector2(), 0.0f));
+      ScaleOriginMatrix = Matrix.CreateScale(((GraphicsDevice)sender).Viewport.Height / 2160f) * originMatrix;
     }
     public override void Update(GameTime gameTime, Bullets bullets, VoidShip target, Vector2 average, float maxDistanceSquared)
     {
       if (target != null)
       {
-        targetRelativePosition = target.Position - position;
-        targetRelativeVelocity = target.Velocity - velocity;
+        Weapons.targetRelativePosition = target.Position - position;
+        Weapons.targetRelativePositionSquared = Weapons.targetRelativePosition.LengthSquared();
+        Weapons.targetRelativeVelocity = target.Velocity - velocity;
       }
       else
       {
-        targetRelativePosition = Vector2.Zero;
-        targetRelativeVelocity = Vector2.Zero;
+        Weapons.targetRelativePosition = Vector2.Zero;
+        Weapons.targetRelativePositionSquared = 0;
+        Weapons.targetRelativeVelocity = Vector2.Zero;
       }
       Thruster.ControlPC(velocity);
-      Weapons.ControlPC(targetRelativePosition, targetRelativeVelocity);
       base.Update(gameTime, bullets);
       Sound.Thrust = Thruster.Thrust;
       PositionMatrix = Matrix.CreateTranslation(new Vector3(-Position, 0.0f));
-      ViewMatrix = PositionMatrix * originMatrix;
+      ViewMatrix = PositionMatrix * ScaleOriginMatrix;
     }
   }
 }

@@ -7,6 +7,7 @@ namespace MG.Shared.VoidControl.Ship.SubSystems
   {
     private readonly int mask = 512 | 256;
     private float rangeMax;
+    private int milliseconds;
     public float Range;
     public float RangeSquared;
     public override float Quality
@@ -23,9 +24,11 @@ namespace MG.Shared.VoidControl.Ship.SubSystems
     {
       Texture = Content.Load<Texture2D>("Art/VoidShip/Sensor");
     }
-    public void Update(GameTime gameTime)
+    public void Update()
     {
-      Color = (gameTime.TotalGameTime.Milliseconds & mask) != mask ? Color.Transparent : Color.LimeGreen;
+      milliseconds += 16;
+      milliseconds &= 1023;
+      Color = (milliseconds & mask) != mask ? Color.Transparent : Color.LimeGreen;
     }
   }
 }

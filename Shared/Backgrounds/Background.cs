@@ -34,6 +34,8 @@ namespace MG.Shared.Backgrounds
     {
       DrawBoundsOffset.X = ((GraphicsDevice)sender).Viewport.Width / 2;
       DrawBoundsOffset.Y = ((GraphicsDevice)sender).Viewport.Height / 2;
+      DrawBoundsOffset.X = 3840 / 2;
+      DrawBoundsOffset.Y = 2160 / 2;
       DrawBoundsOffset += CenterCell.Size;
       DrawBoundsOffset.X &= cellMask;
       DrawBoundsOffset.Y &= cellMask;

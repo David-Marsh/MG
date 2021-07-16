@@ -26,6 +26,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\Background.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Cards\Standard.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Global\Entities\FullEntity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Global\Entities\FullEntityChild.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Global\Entities\FullEntityParent.cs" />

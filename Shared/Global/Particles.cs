@@ -58,7 +58,7 @@ namespace MG.Shared.Global
     private static readonly Random rand = new();
     public Particles()
     {
-      array = new Particle[0x400];
+      array = new Particle[0x800];
       for (int i = 0; i < array.Length; i++)
       {
         array[i] = new();
@@ -86,7 +86,8 @@ namespace MG.Shared.Global
     {
       Vector2 velocity;
       Vector2 scale = Vector2.One * 6;
-      for (int i = 0; i < 128; i++)
+      int parts = (array.Length - Count) / 16;
+      for (int i = 0; i < parts; i++)
       {
         velocity = NextVector2(0.1f, 0.5f);
         Add(position, Color.White, scale, velocity, 0.003f);
